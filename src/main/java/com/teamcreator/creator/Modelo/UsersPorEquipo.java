@@ -9,9 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Table;
 
 
-import java.sql.Date;
-import java.util.List;
-
 @Table(name = "UsersporEquipo")
 @Entity
 public class UsersPorEquipo {

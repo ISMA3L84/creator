@@ -29,7 +29,7 @@ public class EquiposController {
 
 // Obtener un equipo por ID (GET)
     @GetMapping("/{id}")
-    public ResponseEntity<Equipos> getBicicletaById(@PathVariable Long id) {
+    public ResponseEntity<Equipos> getEquiposById(@PathVariable Integer id) {
         Equipos equipos = equiposService.findById(id);
         return new ResponseEntity<>(equipos, HttpStatus.OK);
     }
@@ -37,13 +37,13 @@ public class EquiposController {
 // Obtener equipos por nombre (GET)
     @GetMapping("/nombre_equipo")
     public ResponseEntity<List<Equipos>> getEquiposPorNombre_equipo(@RequestParam String nombre_equipo) {
-        List<Equipos> equipos = equiposService.findByNombre_equipo(nombre_equipo);
+        List<Equipos> equipos = equiposService.findByNombreEquipo(nombre_equipo);
         return new ResponseEntity<>(equipos, HttpStatus.OK);
     }
 
 //Obtener equipo para editar en html
     @GetMapping("/detalle/{id}")
-    public String verEquiposDetalle(@PathVariable Long id, Model model) {
+    public String verEquiposDetalle(@PathVariable Integer id, Model model) {
         Equipos equipos = equiposService.findById(id);
         model.addAttribute("Equipos", equipos);
         return "/views/Equipos/equipos-detalle";
@@ -51,24 +51,26 @@ public class EquiposController {
 
 // Crear un nuevo equipo (POST)
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-public ResponseEntity<Equipos> createBicicleta(@ModelAttribute Equipos equipos) {
+public ResponseEntity<Equipos> createEquipos(@ModelAttribute Equipos equipos) {
     Equipos newEquipos = equiposService.save(equipos);
     return new ResponseEntity<>(newEquipos, HttpStatus.CREATED);
 }  
 
 // Actualizar un equipo existente (PUT)
     @PutMapping("/{id}")
-    public ResponseEntity<Equipos> updateEquipos(@PathVariable Long id, @RequestBody Equipos equipos) {
+    public ResponseEntity<Equipos> updateEquipos(@PathVariable Integer id, @RequestBody Equipos equipos) {
         Equipos updatedEquipos = equiposService.update(id, equipos);
         return new ResponseEntity<>(updatedEquipos, HttpStatus.OK);
     }
 
 // Eliminar un equipo por ID (DELETE)
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEquipos(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteEquipos(@PathVariable Integer id) {
         equiposService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
 
 // Creando la interfaz web
     public EquiposController(EquiposService equiposService) {

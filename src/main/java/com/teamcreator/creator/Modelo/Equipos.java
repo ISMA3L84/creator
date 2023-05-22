@@ -11,7 +11,6 @@ import javax.persistence.Table;
 
 
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +23,10 @@ public class Equipos {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private int id;
+	private Integer id;
+
     @Column(name = "nombre_equipo")
-    private String nombre_equipo;
+    private String nombreEquipo;
 	
     @Column(name = "fecha_inicio_equipo")
     private LocalDate fecha_inicio_equipo;
@@ -38,62 +38,92 @@ public class Equipos {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UsersPorEquipo> usersPorEquipo = new ArrayList<>();
 
+    @OneToMany(mappedBy = "equipos", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Resultados> resultados = new ArrayList<>();
+
  //constructores
     public Equipos() {
     }
 
     
-//getters and setters
-    public int getId() {
+public Equipos(Integer id, String nombre_equipo, LocalDate fecha_inicio_equipo, LocalDate fecha_fin_equipo,
+            List<UsersPorEquipo> usersPorEquipo, List<Resultados> resultados) {
+        this.id = id;
+        this.nombreEquipo = nombre_equipo;
+        this.fecha_inicio_equipo = fecha_inicio_equipo;
+        this.fecha_fin_equipo = fecha_fin_equipo;
+        this.usersPorEquipo = usersPorEquipo;
+        this.resultados = resultados;
+    }
+
+
+    //getters and setters
+
+    public Integer getId() {
         return id;
     }
 
-    public String getNombre_equipo() {
-        return nombre_equipo;
+
+    public void setId(Integer id) {
+        this.id = id;
     }
+
+
+    public String getNombre_equipo() {
+        return nombreEquipo;
+    }
+
+
+    public void setNombre_equipo(String nombre_equipo) {
+        this.nombreEquipo = nombre_equipo;
+    }
+
 
     public LocalDate getFecha_inicio_equipo() {
         return fecha_inicio_equipo;
     }
 
-    public LocalDate getFecha_fin_equipo() {
-        return fecha_fin_equipo;
-    }
-
-    public List<UsersPorEquipo> getUsersPorEquipo() {
-        return usersPorEquipo;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setNombre_equipo(String nombre_equipo) {
-        this.nombre_equipo = nombre_equipo;
-    }
 
     public void setFecha_inicio_equipo(LocalDate fecha_inicio_equipo) {
         this.fecha_inicio_equipo = fecha_inicio_equipo;
     }
 
+
+    public LocalDate getFecha_fin_equipo() {
+        return fecha_fin_equipo;
+    }
+
+
     public void setFecha_fin_equipo(LocalDate fecha_fin_equipo) {
         this.fecha_fin_equipo = fecha_fin_equipo;
     }
+
+
+    public List<UsersPorEquipo> getUsersPorEquipo() {
+        return usersPorEquipo;
+    }
+
 
     public void setUsersPorEquipo(List<UsersPorEquipo> usersPorEquipo) {
         this.usersPorEquipo = usersPorEquipo;
     }
 
+
+    public List<Resultados> getResultados() {
+        return resultados;
+    }
+
+
+    public void setResultados(List<Resultados> resultados) {
+        this.resultados = resultados;
+    }
+
     //toString
     @Override
     public String toString() {
-        return "Equipos [id=" + id + ", nombre_equipo=" + nombre_equipo + ", fecha_inicio_equipo=" + fecha_inicio_equipo
+        return "Equipos [id=" + id + ", nombre_equipo=" + nombreEquipo + ", fecha_inicio_equipo=" + fecha_inicio_equipo
                 + ", fecha_fin_equipo=" + fecha_fin_equipo + ", usersPorEquipo=" + usersPorEquipo + "]";
-    }
-    
-  
-  
-   
+    }   
    
 	
 }	

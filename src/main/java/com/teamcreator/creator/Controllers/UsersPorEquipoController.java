@@ -12,8 +12,6 @@ import com.teamcreator.creator.Repositorios.UsersPorEquipoRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +78,7 @@ public class UsersPorEquipoController{
                 return "error";
             }
             
-            UUID userId = usersPorEquipo.getUser().getId();
+            Long userId = usersPorEquipo.getUser().getId();
             Optional<User> optionalUser = userRepository.findById(userId);
             
             if (!optionalUser.isPresent()) {

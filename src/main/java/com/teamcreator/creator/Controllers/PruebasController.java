@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import com.teamcreator.creator.Modelo.Equipos;
 import com.teamcreator.creator.Modelo.Pruebas;
 import com.teamcreator.creator.Modelo.User;
-import com.teamcreator.creator.Repositorios.PruebasRepository;
-import com.teamcreator.creator.Repositorios.UserRepository;
 import com.teamcreator.creator.Services.EquiposService;
 import com.teamcreator.creator.Services.PruebasService;
 import com.teamcreator.creator.Services.UserService;
@@ -31,12 +29,6 @@ public class PruebasController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private PruebasRepository pruebasRepository;
 
     @Autowired
     private EquiposService equiposService;

@@ -6,7 +6,12 @@ import java.util.List;
 
 
 
-public interface EquiposRepository extends JpaRepository<Equipos, Long>{
-    List<Equipos> findByNombre_equipo(String nombre_equipo);
+public interface EquiposRepository extends JpaRepository<Equipos, Integer>{
+    static List<Equipos> findBiId(Integer id) {
+        throw new UnsupportedOperationException("Unimplemented method 'findBiId'");
+    }
+    List<Equipos> findByNombreEquipo(String nombreEquipo);
     
 }
+
+

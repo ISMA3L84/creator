@@ -22,7 +22,7 @@ public class UserService {
     }
 
     //Encontrar todos los usuarios por ID
-    public User findById(UUID id) {
+    public User findById(Long id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
             return user.get();
@@ -42,7 +42,7 @@ public class UserService {
     }
     
     //Actualizar un usuario existente
-    public User update(UUID id, User userDetails) {
+    public User update(Long id, User userDetails) {
         User user = findById(id);
         user.setUserName(userDetails.getUserName());
         user.setUserSurname(userDetails.getUserSurname());
@@ -51,30 +51,33 @@ public class UserService {
         user.setEmailUser(userDetails.getEmailUser());
         user.setUserPassword(userDetails.getUserPassword());
         user.setUserPhone(userDetails.getUserPhone());
-        user.setUserAdress(userDetails.getUserAdress());
+        user.setUserAddress(userDetails.getUserAddress());
         user.setUserCity(userDetails.getUserCity());
         user.setUserCountry(userDetails.getUserCountry());
         user.setUserPostalCode(userDetails.getUserPostalCode());
         user.setUserRole(userDetails.getUserRole());
-        user.setUserWeight(userDetails.getUserWeight());
+        user.setUserWeigth(userDetails.getUserWeigth());
         user.setUserHeight(userDetails.getUserHeight());
-        user.setUserConsent(userDetails.getUserConsent());
+        user.setUserConsent(userDetails.isUserConsent());
         user.setUserDateConsent(userDetails.getUserDateConsent());
-        user.setUserActive(userDetails.getUserActive());
-        user.setUserCreateAt(userDetails.getUserCreateAt());
+        user.setUserActive(userDetails.isUserActive());
+        user.setUserCreatedAt(userDetails.getUserCreatedAt());
 
         return userRepository.save(user);
     }   
         
     //Eliminar un usuario por ID
-    public void delete(UUID id) {
+    public void delete(Long id) {
         User user = findById(id);
         userRepository.delete(user);
         
     }    
         
     
-
+     // Encontrar un usuario por UUID
+     public Optional<User> findByUuid(UUID uuid) {
+        return userRepository.findByUuid(uuid);
+    }
 
 
 

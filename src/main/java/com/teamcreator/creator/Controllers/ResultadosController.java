@@ -2,7 +2,6 @@ package com.teamcreator.creator.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -10,9 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import com.teamcreator.creator.Modelo.Equipos;
 import com.teamcreator.creator.Modelo.Pruebas;
 import com.teamcreator.creator.Modelo.Resultados;
-import com.teamcreator.creator.Repositorios.ResultadosRepository;
-import com.teamcreator.creator.Repositorios.PruebasRepository;
-
 import com.teamcreator.creator.Services.ResultadosService;
 import com.teamcreator.creator.Services.EquiposService;
 import com.teamcreator.creator.Services.PruebasService;
@@ -22,9 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
 import javax.validation.Valid;
 
 @Controller
@@ -38,12 +31,6 @@ public class ResultadosController {
     private PruebasService pruebasService;
 
     @Autowired
-    private PruebasRepository pruebasRepository;
-
-    @Autowired
-    private ResultadosRepository resultadosRepository;
-
-    @Autowired
     private EquiposService equiposService;
 
     @PostMapping("/resultados")
@@ -54,9 +41,9 @@ public class ResultadosController {
     
 //cargar editar resultados
     @GetMapping("/edit/{id}")
-    public String showEditResultadosForm(@PathVariable("id") Long id, Model model) {
+    public String showEditResultadosForm(@PathVariable("id") Integer id, Model model) {
         try {
-            Resultados resultados = resultadosService.findById(id);
+            List<Resultados> resultados = resultadosService.findByEquipoId(id);
             List<Equipos> equipos = equiposService.findAll();
             List<Pruebas> pruebas = pruebasService.findAll();
 
@@ -107,7 +94,7 @@ public class ResultadosController {
     }
 
     @GetMapping("/resultados-add")
-    public String addReparacion(Model model) {
+    public String addResultados(Model model) {
         Resultados resultado = new Resultados();
         List<Equipos> equipo = equiposService.findAll();
         List<Pruebas> prueba = pruebasService.findAll();
@@ -120,14 +107,14 @@ public class ResultadosController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Resultados> updateResultados(@PathVariable Long id, @Valid @RequestBody Resultados resultados) {
-        Resultados updatedResultados = resultadosService.update(id, resultados);
-        return new ResponseEntity<>(updatedResultados, HttpStatus.OK);
-    }
+    public ResponseEntity<List<Resultados>> updateResultados(@PathVariable Integer id, @Valid @RequestBody Resultados resultados) {
+    List<Resultados> updatedResultados = resultadosService.update(id, resultados);
+    return new ResponseEntity<>(updatedResultados, HttpStatus.OK);
+}
  
     //Eliminar un resultado
     @PostMapping("/delete/{id}")
-    public String deleteResultados(@PathVariable Long id) {
+    public String deleteResultados(@PathVariable Integer id) {
         resultadosService.deleteById(id);;
         return "redirect:/resultados/listado-resultados";
     }

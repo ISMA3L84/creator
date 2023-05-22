@@ -1,7 +1,6 @@
 package com.teamcreator.creator.Modelo;
 
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -47,7 +46,11 @@ public class Pruebas{
     private LocalTime duracion_estimada_aprox;
 
     //constructor
-    public Pruebas() {
+
+    
+    public Pruebas(int id, List<Resultados> resultados, String nombre_prueba, String descripcion_prueba, int puntos,
+            String equipamiento_especial_obligatorio, String advertencias, int edad_minima_recomendada,
+            LocalTime duracion_estimada_aprox) {
         this.id = id;
         this.resultados = resultados;
         this.nombre_prueba = nombre_prueba;
@@ -59,10 +62,16 @@ public class Pruebas{
         this.duracion_estimada_aprox = duracion_estimada_aprox;
     }
 
+
+    public Pruebas() {
+    }
+
+
     //getters and setters
     public int getId() {
         return id;
     }
+
 
     public void setId(int id) {
         this.id = id;

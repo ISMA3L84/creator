@@ -1,0 +1,16 @@
+2023-05-21 15:19:03.571 ERROR 14044 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Failed to initialize JPA EntityManagerFactory: mappedBy reference an unknown target entity property: com.teamcreator.creator.Modelo.Resultados.resultados in com.teamcreator.creator.Modelo.Equipos.resultados
+
+2023-05-21 15:19:03.571 ERROR 14044 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Failed to initialize JPA EntityManagerFactory: mappedBy reference an unknown target entity property: com.teamcreator.creator.Modelo.Resultados.resultados in com.teamcreator.creator.Modelo.Equipos.resultados
+
+2023-05-21 15:19:03.574  WARN 14044 --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is 
+org.hibernate.AnnotationException: mappedBy reference an unknown target entity property: com.teamcreator.creator.Modelo.Resultados.resultados in com.teamcreator.creator.Modelo.Equipos.resultados
+
+Caused by: org.hibernate.AnnotationException: mappedBy reference an unknown target entity property: com.teamcreator.creator.Modelo.Resultados.resultados in com.teamcreator.creator.Modelo.Equipos.resultados
+
+
+
+Failed to initialize JPA EntityManagerFactory: mappedBy reference an unknown target entity property: com.teamcreator.creator.Modelo.Resultados.resultados in com.teamcreator.creator.Modelo.Equipos.resultados
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2023-05-21 15:58:10.316 ERROR 16696 --- [  restartedMain] o.s.boot.SpringApplication               : Application run failed
+Caused by: org.hibernate.AnnotationException: mappedBy reference an unknERROR 22900 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Failed to initialize JPA EntityManagerFactory: mappedBy reference an unknown target entity property: com.teamcreator.creator.Modelo.Resultados.resultados in com.teamcreator.creator.Modelo.Equipos.resultadosown target entity property: com.teamcreator.creator.Modelo.Resultados.resultados in com.teamcreator.creator.Modelo.Equipos.resultados

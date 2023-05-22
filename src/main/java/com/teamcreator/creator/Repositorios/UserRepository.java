@@ -9,6 +9,8 @@ import com.teamcreator.creator.Modelo.User;
 
 public interface UserRepository extends JpaRepository<User, UUID>{
     List<User> findByuserName(String userName);
-    Optional<User> findById(UUID uuid);
-    
+   
+    Optional<User> findByUuid(UUID uuid);
+
+    Optional<User> findById(Long id);
 }
