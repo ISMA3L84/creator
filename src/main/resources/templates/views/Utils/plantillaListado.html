@@ -3,19 +3,19 @@
   <head th:replace="fragments/common-head :: common-head">
   </head>
   <body>
-    <h1>Listado de Pruebas <span th:text="${nombre}"></span>!</h1>
+    <h1>Listado de Equipos <span th:text="${nombre}"></span>!</h1>
     <div th:replace="fragments/navbar :: navbar"></div>
     <div class="container">
-      <a href="#" class="btn btn-primary my-3" data-toggle="modal" data-target="#addTeamModal">Agregar Pruebas</a>
+      <a href="#" class="btn btn-primary my-3" data-toggle="modal" data-target="#addTeamModal">Agregar equipo</a>
       <button type="button" class="btn btn-primary my-3" onclick="location.href='/hello'">volver a Home<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 3.293l5.5 5.5a.5.5 0 0 1-.707.707L8 4.707 2.707 10.5a.5.5 0 1 1-.707-.707L8 3.293z"/><path fill-rule="evenodd" d="M7.5 10.5V14h1v-3.5a.5.5 0 0 1 1 0V14h1v-3.5a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2V14h1v-3.5a.5.5 0 0 1 1 0z"/></svg></button>
       <table class="table table-striped">
-        <thead class="thead-dark"><tr><th>ID</th><th>nombre_prueba</th></tr></thead>
+        <thead class="thead-dark"><tr><th>ID</th><th>nombreEquipo</th></tr></thead>
         <tbody>
-          <tr th:each="pruebas : ${prueba}">
-            <td th:text="${pruebas.id}"></td>
-            <td th:text="${pruebas.nombre}"></td>
+          <tr th:each="equipos : ${equipo}">
+            <td th:text="${equipos.id}"></td>
+            <td th:text="${equipos.nombre}"></td>
            
-            <td><a th:href="@{/Pruebas/detalle/{id}(id=${pruebas.id})}" class="btn btn-warning">Editar</a></td>
+            <td><a th:href="@{/equipo/detalle/{id}(id=${equipos.id})}" class="btn btn-warning">Editar</a></td>
           </tr>
         </tbody>
       </table>

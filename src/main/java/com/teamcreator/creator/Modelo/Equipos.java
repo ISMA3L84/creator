@@ -8,10 +8,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 
 import java.time.LocalDate;
+
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,9 +35,11 @@ public class Equipos {
     private String nombreEquipo;
 	
     @Column(name = "fecha_inicio_equipo")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fecha_inicio_equipo;
 
     @Column(name = "fecha_fin_equipo")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fecha_fin_equipo;
 
 
@@ -41,92 +49,90 @@ public class Equipos {
     @OneToMany(mappedBy = "equipos", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Resultados> resultados = new ArrayList<>();
 
+
  //constructores
     public Equipos() {
     }
 
-    
-public Equipos(Integer id, String nombre_equipo, LocalDate fecha_inicio_equipo, LocalDate fecha_fin_equipo,
+    public Equipos(Integer id, String nombreEquipo, LocalDate fecha_inicio_equipo, LocalDate fecha_fin_equipo,
             List<UsersPorEquipo> usersPorEquipo, List<Resultados> resultados) {
         this.id = id;
-        this.nombreEquipo = nombre_equipo;
+        this.nombreEquipo = nombreEquipo;
         this.fecha_inicio_equipo = fecha_inicio_equipo;
         this.fecha_fin_equipo = fecha_fin_equipo;
         this.usersPorEquipo = usersPorEquipo;
         this.resultados = resultados;
     }
 
-
-    //getters and setters
-
+ //getter y setter
     public Integer getId() {
         return id;
     }
-
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-
-    public String getNombre_equipo() {
+    public String getNombreEquipo() {
         return nombreEquipo;
     }
 
-
-    public void setNombre_equipo(String nombre_equipo) {
-        this.nombreEquipo = nombre_equipo;
+    public void setNombreEquipo(String nombreEquipo) {
+        this.nombreEquipo = nombreEquipo;
     }
-
 
     public LocalDate getFecha_inicio_equipo() {
         return fecha_inicio_equipo;
     }
 
-
     public void setFecha_inicio_equipo(LocalDate fecha_inicio_equipo) {
         this.fecha_inicio_equipo = fecha_inicio_equipo;
     }
-
 
     public LocalDate getFecha_fin_equipo() {
         return fecha_fin_equipo;
     }
 
-
     public void setFecha_fin_equipo(LocalDate fecha_fin_equipo) {
         this.fecha_fin_equipo = fecha_fin_equipo;
     }
-
 
     public List<UsersPorEquipo> getUsersPorEquipo() {
         return usersPorEquipo;
     }
 
-
     public void setUsersPorEquipo(List<UsersPorEquipo> usersPorEquipo) {
         this.usersPorEquipo = usersPorEquipo;
     }
-
 
     public List<Resultados> getResultados() {
         return resultados;
     }
 
-
     public void setResultados(List<Resultados> resultados) {
         this.resultados = resultados;
     }
 
-    //toString
     @Override
     public String toString() {
-        return "Equipos [id=" + id + ", nombre_equipo=" + nombreEquipo + ", fecha_inicio_equipo=" + fecha_inicio_equipo
-                + ", fecha_fin_equipo=" + fecha_fin_equipo + ", usersPorEquipo=" + usersPorEquipo + "]";
-    }   
+        return "Equipos [id=" + id + ", nombreEquipo=" + nombreEquipo + ", fecha_inicio_equipo=" + fecha_inicio_equipo
+                + ", fecha_fin_equipo=" + fecha_fin_equipo + ", usersPorEquipo=" + usersPorEquipo + ", resultados="
+                + resultados + "]";
+    }
+
    
-	
-}	
-
     
+    
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
 
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(String.class, LocalDate.class,
+                source -> LocalDate.parse(source, DateTimeFormatter.ISO_DATE));
+    }
+}
+
+
+
+}

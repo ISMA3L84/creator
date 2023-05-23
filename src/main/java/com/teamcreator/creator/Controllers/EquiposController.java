@@ -20,6 +20,20 @@ public class EquiposController {
     @Autowired
     private EquiposService equiposService;
 
+//Añadir Equipo
+@GetMapping("/addEquipos")
+public String showAddEquiposPage(Model model) {
+    model.addAttribute("equipos", new Equipos()); // Añade esta línea si planeas crear un nuevo objeto Equipos en esta página
+    return "/views/Equipos/addEquipos";
+}
+
+//Guardar un jodido equipo
+@PostMapping("/saveEquipos")
+public String createEquipos(@ModelAttribute Equipos Equipos) {
+    equiposService.save(Equipos);
+    return "redirect:/equipos/listado-equipos";
+}
+
 // Obtener todos los equipos (GET)
     @GetMapping
     public ResponseEntity<List<Equipos>> getAllEquipos() {
@@ -49,13 +63,6 @@ public class EquiposController {
         return "/views/Equipos/equipos-detalle";
     }
 
-// Crear un nuevo equipo (POST)
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-public ResponseEntity<Equipos> createEquipos(@ModelAttribute Equipos equipos) {
-    Equipos newEquipos = equiposService.save(equipos);
-    return new ResponseEntity<>(newEquipos, HttpStatus.CREATED);
-}  
-
 // Actualizar un equipo existente (PUT)
     @PutMapping("/{id}")
     public ResponseEntity<Equipos> updateEquipos(@PathVariable Integer id, @RequestBody Equipos equipos) {
@@ -79,9 +86,8 @@ public ResponseEntity<Equipos> createEquipos(@ModelAttribute Equipos equipos) {
 
     @GetMapping("/listado-equipos")
     public String listarEquipos(Model model) {
-        List<Equipos> equipos = equiposService.findAll();
-        model.addAttribute("equipos", equipos);
-        model.addAttribute("equipos", new Equipos()); // Añade esta línea
+        List<Equipos> listaEquipos = equiposService.findAll();
+        model.addAttribute("equipos", listaEquipos);
         return "/views/Equipos/listado-equipos";
     }
 
