@@ -6,53 +6,43 @@
     <h1>Editar Equipos</h1>
     <!-- Fragmento de la barra de navegación -->
     <div th:replace="fragments/navbar :: navbar"></div>
-
     <div class="container">
-  
-        <form action="/repairs/update-post" method="post" th:object="${equipos}">
+        <h2>Editar Equipo</h2>
+        <form action="/equipos/update-post" method="post" th:object="${equipos}">
             <div class="form-group">
-                <input class="form-control" type="text" name="id" id="userId" th:value="${equipos.id}" readonly />
+                <input class="form-control" type="hidden" name="id" id="userId" th:value="${equipos.id}" readonly />
             </div>
-            <div class="row">
-                <!-- Equipos -->
-                <div class="col-md-6 col-lg-4 mb-3">
-                    <label for="equipos">Equipos:</label>
-                    <select class="form-control" th:field="*{equipos}" id="equipos">
-                        <option th:each="equipos : ${equipo}"
-                                th:value="${equipos.id}"
-                                th:text="${equipos.id + ' - ' + equipos.nombreEquipo}"
-                                >
-                        </option>
-                    </select>
-                </div>
-                <!-- Nombre Equipo -->
-                <div class="col-md-6 col-lg-4 mb-3">
-                    <label for="nombreEquipo">nombreEquipo:</label>
-                    <select class="form-control" th:field="*{nombreEquipo}" id="equipos">
-                        <option th:each="equipos : ${equipo}"
-                                th:value="${equipo.id}"
-                                th:text="${equipos.nombreEquipo}"
-                                th:selected="${equipos.id} == ${nombreEquipo.equipos.id}">
-                        </option>
-                    </select>
-                </div>
-                <!-- Fecha de inicio equipo -->
-                <div class="col-md-6 col-lg-4 mb-3">
-                    <label for="fechaInicio">Fecha de inicio:</label>
-                    <input class="form-control" type="date" th:field="*{fecha}" id="fecha" />
-                </div>
-                <!-- Fecha de fin equipo -->
-                <div class="col-md-6 col-lg-4 mb-3">
-                    <label for="fechaFin">Fecha de fin:</label>
-                    <input class="form-control" type="date" th:field="*{fechaSalida}" id="fechaSalida" />
-                </div>
-              
-                <!-- Botón para enviar el formulario -->
-                <div class="col-md-6 col-12 mb-3">
-                    <button type="submit" class="btn btn-primary">Guardar Equipos</button>
+            <!-- Nombre Equipo -->
+            <div class="col-md-6 col-lg-4 mb-3">
+                <label for="nombreEquipo">Nombre Equipo:</label>
+                <input class="form-control" th:field="*{nombreEquipo}" id="nombreEquipos" />
             </div>
-        </div>
+            <!-- Fecha de inicio equipo -->
+            <div class="col-md-6 col-lg-4 mb-3">
+                <label for="fechaInicio">Fecha de inicio:</label>
+                <input class="form-control" type="date" th:field="*{fecha_inicio_equipo}" id="fecha" />
+            </div>
+            <!-- Fecha de fin equipo -->
+            <div class="col-md-6 col-lg-4 mb-3">
+                <label for="fechaFin">Fecha de fin:</label>
+                <input class="form-control" type="date" th:field="*{fecha_fin_equipo}" id="fechaSalida" />
+            </div>
+    
+            <!-- Botón para enviar el formulario -->
+            <div class="col-md-6 col-12 mb-3">
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </div>
         </form>
+        <!-- Botón para eliminar el equipo -->
+        <div class="col-md-6 col-12 mb-3">
+            <form th:action="@{'/teams/delete/' + ${equipos.id}}" method="post">
+                <input type="hidden" name="_method" value="delete" />
+                <button type="submit" class="btn btn-danger">Eliminar Equipo</button>
+            </form>
+        </div>
+    </div>
+    
+   
             <!-- Botón para eliminar el equipo -->
         <div class="col-md-6 col-12 mb-3"> <!-- Ajustar el contenedor del botón de eliminar -->
             <form th:action="@{'/teams/delete/' + ${equipos.id}}" method="post">

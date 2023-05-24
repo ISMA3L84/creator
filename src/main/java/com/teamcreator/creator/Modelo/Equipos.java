@@ -49,7 +49,6 @@ public class Equipos {
     @OneToMany(mappedBy = "equipos", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Resultados> resultados = new ArrayList<>();
 
-
  //constructores
     public Equipos() {
     }

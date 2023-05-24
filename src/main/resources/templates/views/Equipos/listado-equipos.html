@@ -26,7 +26,7 @@
             <td th:text="${equipos.fecha_fin_equipo}"></td>
             
            
-            <td><a th:href="@{/equipos/detalle/(id=${equipos.id})}" class="btn btn-warning">Editar</a></td>
+            <td><a th:href="@{/equipos/detalle/{id}(id=${equipos.id})}" class="btn btn-warning">Editar</a></td>
           </tr>
         </tbody>
       </table>

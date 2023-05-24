@@ -5,7 +5,6 @@ import com.teamcreator.creator.Services.EquiposService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,12 +54,12 @@ public String createEquipos(@ModelAttribute Equipos Equipos) {
         return new ResponseEntity<>(equipos, HttpStatus.OK);
     }
 
-//Obtener equipo para editar en html
+    //Obtener equipo para editar en html
     @GetMapping("/detalle/{id}")
     public String verEquiposDetalle(@PathVariable Integer id, Model model) {
         Equipos equipos = equiposService.findById(id);
-        model.addAttribute("Equipos", equipos);
-        return "/views/Equipos/equipos-detalle";
+        model.addAttribute("equipos", equipos);
+        return "/views/Equipos/editEquipos";
     }
 
 // Actualizar un equipo existente (PUT)

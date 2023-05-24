@@ -7,6 +7,7 @@ import com.teamcreator.creator.Modelo.Equipos;
 import com.teamcreator.creator.Repositorios.EquiposRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 
@@ -15,11 +16,21 @@ public class EquiposService {
     
     @Autowired
     private EquiposRepository equiposRepository;
-
-    @Autowired
+    
     public EquiposService(EquiposRepository equiposRepository) {
         this.equiposRepository = equiposRepository;
     }
+
+//metodos propios
+private Equipos equipoSeleccionado;
+
+public Equipos getEquipoSeleccionado() {
+    return equipoSeleccionado;
+}
+
+public void setEquipoSeleccionado(Equipos equipoSeleccionado) {
+    this.equipoSeleccionado = equipoSeleccionado;
+}
 
 //Guardar un nuevo equipo.
     public Equipos save(Equipos equipos) {
@@ -46,9 +57,15 @@ public class EquiposService {
         return equiposRepository.save(equipos);
     }
 
-    public Equipos findById(Integer id) {
-        return null;
+   //Encontrar un equipo por ID
+   public Equipos findById(Integer id) {
+    Optional<Equipos> equipos = equiposRepository.findById(id);
+    if (equipos.isPresent()){
+        return equipos.get();
+    }else {
+        throw new RuntimeException("El equipo no se ha encontrado por el ID: " + id );
     }
+   }
 
     //Eliminar un equipo por ID
     public void delete (Integer id) {

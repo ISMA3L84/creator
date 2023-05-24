@@ -1,0 +1,13 @@
+El método en sí parece correcto y está manejando el `id` como `Integer`. Pero, hay un detalle a considerar en la lógica de este método. ¿Estás seguro de que el método `equiposService.findById(id)` está retornando el equipo correcto? En caso de que el `id` no exista en la base de datos, este método podría estar retornando `null` lo que podría causar problemas más adelante.
+
+Ahora, el problema puede estar en la forma en que se está haciendo el enlace a este método desde el archivo HTML. En el error anterior que proporcionaste, el sistema estaba tratando de convertir la cadena "detalle" en un `Integer`, lo que sugiere que en algún lugar se está proporcionando "detalle" como el `id`.
+
+En el HTML que proporcionaste anteriormente, estás utilizando la ruta correctamente en esta línea:
+
+```html
+<a th:href="@{/equipo/detalle/{id}(id=${equipos.id})}" class="btn btn-warning">Editar</a>
+```
+
+Asegúrate de que esta es la única forma en que estás intentando acceder al método de detalle del equipo y de que `equipos.id` siempre contiene un número válido. Si estás intentando acceder a `/equipo/detalle/{id}` en otro lugar, es posible que se esté proporcionando el valor incorrecto para `{id}`.
+
+Además, también es importante tener en cuenta que la URL de tu ruta en el método del controlador (`@GetMapping("/detalle/{id}")`) debe coincidir con la URL que estás usando en el enlace HTML. Así que, si el nombre de tu entidad es "equipo" en singular, asegúrate de que estás utilizando "/equipo/detalle/{id}" en lugar de "/equipos/detalle/{id}", tanto en el controlador como en el archivo HTML.
