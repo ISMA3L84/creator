@@ -8,7 +8,7 @@
     <div th:replace="fragments/navbar :: navbar"></div>
     <div class="container">
         <h2>Editar Equipo</h2>
-        <form action="/equipos/update-post" method="post" th:object="${equipos}">
+        <form action="/equipos/saveEquipos" method="post" th:object="${equipos}">
             <div class="form-group">
                 <input class="form-control" type="hidden" name="id" id="userId" th:value="${equipos.id}" readonly />
             </div>
