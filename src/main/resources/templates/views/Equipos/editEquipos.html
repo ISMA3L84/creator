@@ -35,21 +35,14 @@
         </form>
         <!-- Botón para eliminar el equipo -->
         <div class="col-md-6 col-12 mb-3">
-            <form th:action="@{'/teams/delete/' + ${equipos.id}}" method="post">
-                <input type="hidden" name="_method" value="delete" />
+            <form th:action="@{'/equipos/delete/' + ${equipos.id}}" method="post">
                 <button type="submit" class="btn btn-danger">Eliminar Equipo</button>
             </form>
-        </div>
+        </div>        
     </div>
     
    
-            <!-- Botón para eliminar el equipo -->
-        <div class="col-md-6 col-12 mb-3"> <!-- Ajustar el contenedor del botón de eliminar -->
-            <form th:action="@{'/teams/delete/' + ${equipos.id}}" method="post">
-                <input type="hidden" name="_method" value="delete" />
-                <button type="submit" class="btn btn-danger">Eliminar</button>
-            </form>
-        </div>
+ 
     </div>
 </body>
 </html>

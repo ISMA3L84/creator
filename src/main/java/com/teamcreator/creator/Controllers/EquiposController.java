@@ -70,11 +70,12 @@ public String createEquipos(@ModelAttribute Equipos Equipos) {
     }
 
 // Eliminar un equipo por ID (DELETE)
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEquipos(@PathVariable Integer id) {
-        equiposService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+@PostMapping("/delete/{id}")
+public String deleteEquipos(@PathVariable Integer id) {
+    equiposService.delete(id);
+    return "redirect:/equipos/listado-equipos";
+}
+
 
 
 
