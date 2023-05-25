@@ -8,33 +8,8 @@
     <div class="container">
       <a href="#" class="btn btn-primary my-3" data-toggle="modal" data-target="#addUserModal">Agregar Usuario</a>
       <button type="button" class="btn btn-primary my-3" onclick="location.href='/hello'">volver a Home<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 3.293l5.5 5.5a.5.5 0 0 1-.707.707L8 4.707 2.707 10.5a.5.5 0 1 1-.707-.707L8 3.293z"/><path fill-rule="evenodd" d="M7.5 10.5V14h1v-3.5a.5.5 0 0 1 1 0V14h1v-3.5a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2V14h1v-3.5a.5.5 0 0 1 1 0z"/></svg></button>
-      <div class="alert alert-success" role="alert" th:if="${message}">
-        <span th:text="${message}"></span>
-      </div>
-      <div class="alert alert-danger" role="alert" th:if="${error}">
-        <span th:text="${error}"></span>
-      </div>
-      <div class="alert alert-danger" role="alert" th:if="${errorDelete}">
-        <span th:text="${errorDelete}"></span>
-      </div>
-      <div class="alert alert-success" role="alert" th:if="${messageDelete}">
-        <span th:text="${messageDelete}"></span>
-      </div>
-      <div class="alert alert-success" role="alert" th:if="${messageUpdate}">
-        <span th:text="${messageUpdate}"></span>
-      </div>
-      <div class="alert alert-danger" role="alert" th:if="${errorUpdate}">
-        <span th:text="${errorUpdate}"></span>
-      </div>
-      <div class="alert alert-success" role="alert" th:if="${messageAdd}">
-        <span th:text="${messageAdd}"></span>
-      </div>
-      <div class="alert alert-danger" role="alert" th:if="${errorAdd}">
-        <span th:text="${errorAdd}"></span>
-      </div>
-    </div>
-  
-<!-- tabla de Usuarios-->
+</div>
+      <!-- tabla de Usuarios-->
     <div class="table-responsive">
       <table class="table table-striped">
         <thead class="thead-dark">
@@ -42,6 +17,7 @@
             <th>ID</th>
             <th>Nombre</th>
             <th>Apellidos</th>
+            <th>Foto</th>
             <th>UserDni</th>
             <th>Fecha Nacimiento</th>
             <th>Email</th>
@@ -63,63 +39,91 @@
           <tr th:each="user : ${users}">
             <td th:text="${user.id}"></td>
             <td th:text="${user.userName}"></td>
-            <td th:text="${user.userName}"></td>
             <td th:text="${user.userSurname}"></td>
+            <td>
+              <img th:if="${user.userPhoto != null}" 
+                   th:src="@{'/images/users/' + ${user.userPhoto}}" 
+                   width="100" height="100" alt="User Photo"/>
+            </td>
             <td th:text="${user.userDni}"></td>
             <td th:text="${user.userBirthDate}"></td>
             <td th:text="${user.emailUser}"></td>
-            <td th:text="${user.userPassword}"></td>
+            <td style="word-wrap: break-word; max-width: 130px;" th:text="${user.userPassword}"></td>
             <td th:text="${user.userPhone}"></td>
             <td th:text="${user.userAddress}"></td>
             <td th:text="${user.userCity}"></td>
             <td class="d-none d-md-table-cell" th:text="${user.userCountry}"></td>
             <td class="d-none d-md-table-cell" th:text="${user.userPostalCode}"></td>
-            <td th:text="${user.userRole}"></td>
+            <td th:text="${user.userGender}"></td>
             <td th:text="${user.userWeigth}"></td>
             <td th:text="${user.userHeight}"></td>
             <td th:text="${user.userConsent}"></td>
             <td class="d-none d-md-table-cell" th:text="${user.userDateConsent}"></td>
             <td class="d-none d-md-table-cell" th:text="${user.userActive}"></td>
-            <td class="d-none d-md-table-cell" th:text="${user.userCreatedAt}"></td>
-          <td><button><a th:href="@{/users/detalle/{id}(id=${user.id})}" class="btn btn-warning">Editar</a></button></td></tr>
+            <td class="d-none d-md-table-cell" th:text="${user.userCreatedAt}"></td>      
+            <td><a th:href="@{/users/detalle/{id}(id=${user.id})}" class="btn btn-warning">Editar</a></td>
+          <td><a th:href="@{/userSecurityProfile/{userId}(userId=${user.id})}" class="btn btn-info">Editar Seguridad</a></td>
+        </tr>
         </tbody>
       </table>
     </div>
 
     <!-- Modal para agregar user -->
     <div th:replace="views/Users/user_addModal :: body"></div>
-    
-    
-
       
   </body>
   <script>
-    $(document).ready(function () {
-     // Agregar usuario
-$("form").on("submit", function (event) {
-    event.preventDefault();
-
-    var formData = new FormData($(this)[0]);
-    $.ajax({
+  $(document).ready(function () {
+    // Agregar usuario
+    $("form").on("submit", function (event) {
+      event.preventDefault();
+  
+      var formData = new FormData($(this)[0]);
+      $.ajax({
         url: "/users",
         type: "POST",
         data: formData,
         processData: false,
         contentType: false,
         success: function (response) {
-            $("#addedUserId").text(response.id);
-            $("#addedUserName").text(response.userName);
-            $("#addedUserEmail").text(response.emailUser);
-
-            $("#addUserModal").modal("hide");
-            $("#infoModal").modal("show");
-        },
+        setTimeout(function() {
+          addUserToTable(response);
+        }, 2000);
+        $("#addUserModal").modal("hide");
+      },
         error: function (xhr, status, error) {
-            console.log("Error: " + error);
+          console.log("Error: " + error);
         },
+      });
     });
-});
 
+    // Agregar usuario a la tabla
+      function addUserToTable(user) {
+      const newRow = `<tr>
+        <td>${user.id}</td>
+        <td>${user.userName}</td>
+        <td>${user.userSurname}</td>
+        <td>${user.userPhoto}</td>
+        <td>${user.userDni}</td>
+        <td>${user.userBirthDate}</td>
+        <td>${user.emailUser}</td>
+        <td>${user.userPassword}</td>
+        <td>${user.userPhone}</td>
+        <td>${user.userAddress}</td>
+        <td>${user.userCity}</td>
+        <td>${user.userCountry}</td>
+        <td>${user.userPostalCode}</td>
+        <td>${user.userGender}</td>
+        <td>${user.userWeigth}</td>
+        <td>${user.userHeight}</td>
+        <td>${user.userConsent}</td>
+        <td>${user.userDateConsent}</td>
+        <td>${user.userActive}</td>
+        <td>${user.userCreatedAt}</td>
+        <td><button><a href="/users/detalle/${user.id}" class="btn btn-warning">Editar</a></button></td>
+      </tr>`;
+      $("table tbody").append(newRow);
+    }
 
         // Recargar la página cuando se cierre la ventana modal #infoModal
       $("#infoModal").on("hidden.bs.modal", function () {
@@ -142,6 +146,13 @@ function mostrarFormularioEdicion(idUser) {
       $("#userId").val(user.id);
       $("#userName").val(user.userName);
       $("#emailUser").val(user.emailUser);
+      $("#editarUserModal").modal("show");
+      if(user.userPhoto) {
+        $("#userImageModal").attr("src", '/images/users/' + user.userPhoto);
+      } else {
+        // Si no tiene foto, mostrar la imagen por defecto
+        $("#userImageModal").attr("src", '/images/default.jpg');
+      }
       $("#editarUserModal").modal("show");
     },
     error: function (xhr, status, error) {

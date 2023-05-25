@@ -6,7 +6,7 @@
 		<!-- Spring Boot Starter Web: para construir aplicaciones web con Spring MVC -->
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.12</version>
+		<version>2.7.11</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.springweb</groupId>
@@ -65,6 +65,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
+			<version>2.6.3</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.flywaydb</groupId>
@@ -76,11 +77,13 @@
 		<dependency>
 			<groupId>jakarta.persistence</groupId>
 			<artifactId>jakarta.persistence-api</artifactId>
+			<version>3.0.0</version>
 		</dependency>
 		<!-- Validation API: para utilizar validaciones JSR 380 (Bean Validation 2.0) -->
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
+			<version>2.0.1.Final</version>
 		</dependency>
 		<!-- Spring Boot Starter Test: para realizar pruebas en aplicaciones Spring Boot -->
 		<dependency>
@@ -97,6 +100,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
+			<version>5.6.4.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -138,6 +142,18 @@
                 </exclusion>
             </exclusions>
         </dependency>
+<!-- Sanitizar codigo bibliotecas OWASP Sanitizer-->
+			<dependency>
+				<groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
+				<artifactId>owasp-java-html-sanitizer</artifactId>
+				<version>20220608.1</version>
+			</dependency>
+<!-- Comprimir imagenes con thumbnailator-->
+			<dependency>
+				<groupId>net.coobird</groupId>
+				<artifactId>thumbnailator</artifactId>
+				<version>0.4.13</version> 
+			</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -149,18 +165,12 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-jdbc</artifactId>
-				<version>2.7.12</version>
+				<version>2.6.3</version>
 			</dependency>
 			<dependency>
 				<groupId>jakarta.persistence</groupId>
 				<artifactId>jakarta.persistence-api</artifactId>
 				<version>3.0.0</version>
-			</dependency>
-			<!-- Sanitizar codigo bibliotecas OWASP Sanitizer-->
-			<dependency>
-			<groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
-			<artifactId>owasp-java-html-sanitizer</artifactId>
-			<version>20220608.1</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

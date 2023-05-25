@@ -9,9 +9,10 @@ import com.teamcreator.creator.Services.UsersPorEquipoService;
 import com.teamcreator.creator.Repositorios.UserRepository;
 import com.teamcreator.creator.Repositorios.UsersPorEquipoRepository;
 
-
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +51,10 @@ public class UsersPorEquipoController{
         @PostMapping("/usersPorEquipo")
         public String createUsersPorEquipo(@ModelAttribute UsersPorEquipo usersPorEquipo) {
             usersPorEquipoService.save(usersPorEquipo);
-            return "redirect:/usersPorEquipo/listado-usersPorEquipo";
+            return "redirect:/UsersPorEquipo/listado-usersPorEquipo";
         }
         
-        //cargar editar reparacion
+        //cargar editar USers por equipo
         @GetMapping("/edit/{id}")
         public String showEditUsersPorEquipoForm(@PathVariable("id") Long id, Model model) {
             try {
@@ -65,7 +66,7 @@ public class UsersPorEquipoController{
                 model.addAttribute("equipos", equipos);
                 model.addAttribute("users", users);
     
-                return "views/usersPorEquipo/usersPorEquipo-edit";
+                return "views/UsersPorEquipo/usersPorEquipo-edit";
             } catch (RuntimeException e) {
                 return "error"; // Mostrar una página de error personalizada si el usersPorEquipo no se encuentra
             }
@@ -78,7 +79,7 @@ public class UsersPorEquipoController{
                 return "error";
             }
             
-            Long userId = usersPorEquipo.getUser().getId();
+            UUID userId = usersPorEquipo.getUser().getId();
             Optional<User> optionalUser = userRepository.findById(userId);
             
             if (!optionalUser.isPresent()) {

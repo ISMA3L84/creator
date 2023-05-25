@@ -27,6 +27,21 @@
                     <td th:text="${user.userSurname}"></td>
                 </tr>
                 <tr>
+                    <th>Foto</th>
+                    <td>
+                        <img th:if="${user.userPhoto != null}" 
+                             th:src="@{'/images/users/' + ${user.userPhoto}}" 
+                             width="100" height="100" alt="User Photo"/>
+                        <img th:unless="${user.userPhoto != null}" 
+                            src="/images/default-user-photo.jpg" 
+                            width="100" height="100" alt="Default User Photo"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>DNI</th>
+                    <td th:text="${user.userDni}"></td>
+                </tr>
+                <tr>
                     <th>Email</th>
                     <td th:text="${user.emailUser}"></td>
                 </tr>
@@ -60,7 +75,7 @@
                 </tr>
                 <tr>
                     <th>Rol</th>
-                    <td th:text="${user.userRole}"></td>
+                    <td th:text="${user.userGender}"></td>
                 </tr>
                 <tr>
                     <th>Peso</th>
@@ -75,132 +90,22 @@
                     <td th:text="${user.userConsent}"></td>
                 </tr>
                 <tr>
-                    <th>Fecha de consentimiento</th>
-                    <td th:text="${user.userDateConsent}"></td>
-                </tr>
-                <tr>
                     <th>Activo</th>
                     <td th:text="${user.userActive}"></td>
                 </tr>
                 <tr>
+                    <th>Fecha de consentimiento</th>
+                    <td th:with="formattedDateConsent=${#temporals.format(user.userDateConsent, 'yyyy-MM-dd HH:mm:ss')}" th:text="${formattedDateConsent}"></td>
+                  </tr>
+                  <tr>
                     <th>Fecha de creación</th>
-                    <td th:text="${user.userCreatedAt}"></td>
-                </tr>
-
+                    <td th:with="formattedCreatedAt=${#temporals.format(user.userCreatedAt, 'yyyy-MM-dd HH:mm:ss')}" th:text="${formattedCreatedAt}"></td>
+                  </tr>
             </table>
             <button type="button" class="btn btn-danger" onclick="mostrarModalEliminar()">Eliminar</button>
             <a href="/users/listado-users" class="btn btn-primary">Volver al listado</a>
         </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-sm-6 col-md-4">
-                    <div class="d-flex justify-content-between">
-                        <strong>ID:</strong>
-                        <span th:text="${user.id}"></span>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4">
-                    <div class="d-flex justify-content-between">
-                        <strong>Nombre:</strong>
-                        <span th:text="${user.userName}"></span>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4">
-                    <div class="d-flex justify-content-between">
-                        <strong>Apellidos:</strong>
-                        <span th:text="${user.userSurname}"></span>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4">
-                    <div class="d-flex justify-content-between">
-                        <strong>Fecha de nacimiento:</strong>
-                        <span th:text="${user.userBirthDate}"></span>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-md-4">
-                    <div class="d-flex justify-content-between">
-                        <strong>Email:</strong>
-                        <span th:text="${user.emailUser}"></span>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-md-4">
-                    <div class="d-flex justify-content-between">
-                        <strong>Teléfono:</strong>
-                        <span th:text="${user.userPhone}"></span>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-md-4" hidden>
-                    <div class="d-flex justify-content-between">
-                        <strong>Contraseña:</strong>
-                        <span th:text="${user.userPassword}"></span>
-                    </div>
-                </div>
-                
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="d-flex justify-content-between">
-                        <strong>Dirección:</strong>
-                        <span th:text="${user.userAddress}"></span>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="d-flex justify-content-between">
-                        <strong>Ciudad:</strong>
-                        <span th:text="${user.userCity}"></span>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="d-flex justify-content-between">
-                        <strong>País:</strong>
-                        <span th:text="${user.userCountry}"></span>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="d-flex justify-content-between">
-                        <strong>Código postal:</strong>
-                        <span th:text="${user.userPostalCode}"></span>
-                    </div>
-                </div>
-                <!-- ... -->
-                <div class="col-12 col-sm-6 col-md-4">
-                    <div class="d-flex justify-content-between">
-                        <strong>Rol:</strong>
-                        <span th:text="${user.userRole}"></span>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4">
-                    <div class="d-flex justify-content-between">
-                        <strong>Peso:</strong>
-                        <span th:text="${user.userWeigth}"></span>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4">
-                    <div class="d-flex justify-content-between">
-                        <strong>Altura:</strong>
-                        <span th:text="${user.userHeight}"></span>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4">
-                    <div class="d-flex justify-content-between">
-                        <strong>Consentimiento:</strong>
-                        <span th:text="${user.userConsent}"></span>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4" hidden>
-                    <div class="d-flex justify-content-between">
-                        <strong>Fecha de consentimiento:</strong>
-                        <span th:text="${user.userDateConsent}"></span>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        
         <!--Ventana modal de edicion-->
         <div th:replace="views/Users/user_editModal :: body"></div>
 
@@ -239,21 +144,22 @@
     </body>
 <script>
     function actualizarUser() {
-  const userId = document.getElementById('userId').value;
-  const userName = document.getElementById('userName').value;
-  const userSurname = document.getElementById('userSurname').value;
+    const userId = document.getElementById('userId').value;
+    const userName = document.getElementById('userName').value;
+    const userSurname = document.getElementById('userSurname').value;
+    const userDni = document.getElementById('userDni').value;
     const userBirthDate = document.getElementById('userBirthDate').value;
-  const emailUser = document.getElementById('emailUser').value;
+    const emailUser = document.getElementById('emailUser').value;
     const userPassword = document.getElementById('userPassword').value;
     const userPhone = document.getElementById('userPhone').value;
     const userAddress = document.getElementById('userAddress').value;
     const userCity = document.getElementById('userCity').value;
     const userCountry = document.getElementById('userCountry').value;
     const userPostalCode = document.getElementById('userPostalCode').value;
-    const userRole = document.getElementById('userRole').value; 
+    const userGender = document.getElementById('userGender').value; 
     const userWeigth = document.getElementById('userWeigth').value;
     const userHeight = document.getElementById('userHeight').value;
-    const userConsent = document.getElementById('userConsent').value;
+    const userConsent = document.getElementById('userConsent').checked;
     const userDateConsent = document.getElementById('userDateConsent').value;
     const userActive = document.getElementById('userActive').value;
     const userCreatedAt = document.getElementById('userCreatedAt').value;    
@@ -263,6 +169,7 @@
     id: userId,
     userName: userName,
     userSurname: userSurname,
+    userDni: userDni,
     emailUser: emailUser,   
     userBirthDate: userBirthDate,
     userPassword: userPassword,
@@ -271,7 +178,7 @@
     userCity: userCity,
     userCountry: userCountry,
     userPostalCode: userPostalCode,
-    userRole: userRole,
+    userGender: userGender,
     userWeigth: userWeigth,
     userHeight: userHeight,
     userConsent: userConsent,
@@ -342,7 +249,6 @@ function mostrarModalEliminar() {
   document.getElementById('modalEliminarUserId').innerText = userId;
   $('#eliminarUserModal').modal('show');
 }
-
 
 //obtener el id de un Usuario para eliminarl
 document.getElementById('modalEliminarUserId').textContent = userId;
