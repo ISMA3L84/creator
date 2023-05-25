@@ -8,7 +8,7 @@
     <div th:replace="fragments/navbar :: navbar"></div>
 
     <div class="container">
-    <form th:action="@{/UsersPorEquipo/saveEquipos}" th:object="${equipos}" method="post">
+    <form th:action="@{/usersPorEquipo/saveEquipos}" th:object="${equipos}" method="post">
         <!-- Id de user -->
         <div class="form-group row">
             <label for="id" class="col-sm-2 col-form-label">ID del equipo:</label>
@@ -19,7 +19,7 @@
         
         <!-- Nombre del equipo -->
         <div class="form-group row">
-            <label for="nombreEquipo" class="col-sm-2 col-form-label">Nombre del equipo:</label>
+            <label for="nombreEquipo" class="col-sm-2 col-form-label">Nombre del User:</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="nombreEquipo" th:field="*{nombreEquipo}">
             </div>
@@ -30,7 +30,7 @@
         <!-- Botón para enviar el formulario -->
         <div class="form-group row">
             <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary">Guardar Equipo</button>
+                <button type="submit" class="btn btn-primary">Guardar User por Equipo</button>
             </div>
         </div>
     </form>

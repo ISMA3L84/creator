@@ -15,13 +15,17 @@ public class UsersPorEquipoService {
     @Autowired
     private UsersPorEquipoRepository usersPorEquipoRepository;
 
+    public UsersPorEquipoService(UsersPorEquipoRepository equiposRepository) {
+     
+    }
+
     //Encontrar todos los usuarios por equipo.
     public List<UsersPorEquipo> findAll() {
         return usersPorEquipoRepository.findAll();
     }
 
     //Encontrar usuarios de equipo por ID.
-    public UsersPorEquipo findById(Long id)  {
+    public UsersPorEquipo findById(Integer id)  {
         Optional<UsersPorEquipo> usersPorEquipo = usersPorEquipoRepository.findById(id);
         if (usersPorEquipo.isPresent()) {
             return usersPorEquipo.get();
@@ -41,7 +45,7 @@ public class UsersPorEquipoService {
     }
 
     //Actualizar usuario por equipo existente.
-    public UsersPorEquipo update(Long id, UsersPorEquipo usersPorEquipoDetails) {
+    public UsersPorEquipo update(Integer id, UsersPorEquipo usersPorEquipoDetails) {
         UsersPorEquipo usersPorEquipo = findById(id);
 
         usersPorEquipo.setEquipos(usersPorEquipoDetails.getEquipos());
@@ -52,12 +56,15 @@ public class UsersPorEquipoService {
     }
 
     //Eliminar un usuario por equipo existente.
-    public void delete (Long id) {
+    public void deleteById (Integer id) {
         UsersPorEquipo usersPorEquipo = findById(id);
         usersPorEquipoRepository.delete(usersPorEquipo);
     }
 
-    public void deleteById(Long id) {
-    }
+    
+
+    
+
+  
 
 }
