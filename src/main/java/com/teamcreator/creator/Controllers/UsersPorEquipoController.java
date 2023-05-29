@@ -51,7 +51,7 @@ public class UsersPorEquipoController{
         @PostMapping("/usersPorEquipo")
         public String createUsersPorEquipo(@ModelAttribute UsersPorEquipo usersPorEquipo) {
             usersPorEquipoService.save(usersPorEquipo);
-            return "redirect:/usersPorEquipo/listado-usersPorEquipo";
+            return "redirect:/usersPorEquipo/listado-UsersPorEquipo";
         }
         
         //cargar editar USers por equipo
@@ -72,16 +72,16 @@ public class UsersPorEquipoController{
             }
         }
 
-        @GetMapping("/metodoquequieroparamostraruserporequipo")
+        @GetMapping("/UsersPorEquipo")
 public String showUsersPorEquipo(Model model) {
     List<UsersPorEquipo> usersPorEquipo = usersPorEquipoService.findAll();
     model.addAttribute("usersPorEquipo", usersPorEquipo);
-    return "views/UsersPorEquipo/listado-usersPorEquipo";
+    return "views/UsersPorEquipo/listado-UsersPorEquipo";
 }
 
     
         //añadir userPorEquipo
-        @PostMapping("/usersPorEquipo/usersPorEquipo")
+        @PostMapping("/saveUsersPorEquipo")
         public String createUsers(@ModelAttribute UsersPorEquipo usersPorEquipo, BindingResult result) {
             if (result.hasErrors()) {
                 return "error";
@@ -97,7 +97,7 @@ public String showUsersPorEquipo(Model model) {
             User user = optionalUser.get();
             usersPorEquipo.setUser(user);
             usersPorEquipoRepository.save(usersPorEquipo);
-            return "success";
+             return "views/UsersPorEquipo/listado-usersPorEquipo";
         }
     
         //editar userPorEquipo
@@ -110,22 +110,20 @@ public String showUsersPorEquipo(Model model) {
     
             usersPorEquipoService.save(usersPorEquipo);
     
-            return "redirect:/usersPorEquipo/listado-usersPorEquipo"; // Redirige al usuario a la lista de usersPorEquipo después de guardar los cambios
+            return "redirect:/usersPorEquipo/listado-UsersPorEquipo"; // Redirige al usuario a la lista de usersPorEquipo después de guardar los cambios
         }
     
     
-        @GetMapping("/listado-usersPorEquipo")
+        @GetMapping("/listado-UsersPorEquipo")
         public String listadoUsersPorEquipo(Model model) {
-            List<UsersPorEquipo> usersPorEquipo = usersPorEquipoService.findAll();
             List<User> users = userService.findAll();
             List<Equipos> equipo = equiposService.findAll();
-            model.addAttribute("usersPorEquipo", usersPorEquipo);
             model.addAttribute("users", users);
             model.addAttribute("equipo", equipo);
-            return "/views/UsersPorEquipo/listado-usersPorEquipo";
+            return "/views/UsersPorEquipo/listado-UsersPorEquipo";
         }
     
-        @GetMapping("/usersPorEquipo-add")
+        @GetMapping("/addUsersPorEquipo")
         public String addUsersPorEquipo(Model model) {
             UsersPorEquipo usersPorEquipo = new UsersPorEquipo();
             List<Equipos> equipos = equiposService.findAll();
@@ -135,7 +133,7 @@ public String showUsersPorEquipo(Model model) {
             model.addAttribute("equipos", equipos);
             model.addAttribute("users", users);
     
-            return "views/UsersPorEquipo/usersPorEquipo-add";
+            return "views/UsersPorEquipo/addUsersPorEquipo";
         }
     
         @PutMapping("/{id}")
@@ -148,7 +146,7 @@ public String showUsersPorEquipo(Model model) {
         @PostMapping("/delete/{id}")
         public String deleteUsersPorEquipo(@PathVariable Integer id) {
             usersPorEquipoService.deleteById(id);
-            return "redirect:/usersPorEquipo/listado-usersPorEquipo";
+            return "redirect:/usersPorEquipo/listado-UsersPorEquipo";
         }
         
     
