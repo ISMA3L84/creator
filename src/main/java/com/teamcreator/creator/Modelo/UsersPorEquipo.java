@@ -16,7 +16,7 @@ public class UsersPorEquipo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Long id;
+	private Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_equipo", nullable = false)
@@ -30,18 +30,18 @@ public class UsersPorEquipo {
 	public UsersPorEquipo() {
 	}
 
-	public UsersPorEquipo(Long id, Equipos equipos, User user) {
+	public UsersPorEquipo(Integer id, Equipos equipos, User user) {
 		this.id = id;
 		this.equipos = equipos;
 		this.user = user;
 	}
 
 //getter and setters
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

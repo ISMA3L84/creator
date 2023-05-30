@@ -21,9 +21,9 @@
         <tbody>
           <tr th:each="usersPorEquipo : ${usersPorEquipo}">
             <td th:text="${usersPorEquipo.id}"></td>
-            <td th:text="${usersPorEquipo.equipo.id}"></td> <!-- Aquí asumo que equipo es un campo en UsersPorEquipo -->
+            <td th:text="${usersPorEquipo.equipos.id}"></td> <!-- Aquí asumo que equipo es un campo en UsersPorEquipo -->
             <td th:text="${usersPorEquipo.user.id}"></td> <!-- Aquí asumo que user es un campo en UsersPorEquipo -->      
-            <td><a th:href="@{/usersPorEquipo/{id}(id=${usersPorEquipo.id})}" class="btn btn-warning">Editar</a></td>
+            <td><a th:href="@{update-post/{id}(id=${usersPorEquipo.id})}" class="btn btn-warning">Editar</a></td>
           </tr>
         </tbody>
       </table>

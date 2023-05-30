@@ -25,12 +25,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 @Controller
-@RequestMapping("/usersPorEquipo")
+@RequestMapping("/usersPorEquipo") 
 public class UsersPorEquipoController{
 
         @Autowired
@@ -51,7 +49,7 @@ public class UsersPorEquipoController{
         @PostMapping("/usersPorEquipo")
         public String createUsersPorEquipo(@ModelAttribute UsersPorEquipo usersPorEquipo) {
             usersPorEquipoService.save(usersPorEquipo);
-            return "redirect:/usersPorEquipo/listado-UsersPorEquipo";
+            return "redirect:/usersPorEquipo/listado-usersPorEquipo";
         }
         
         //cargar editar USers por equipo
@@ -72,11 +70,12 @@ public class UsersPorEquipoController{
             }
         }
 
+        //mostrar todos los users por equipo
         @GetMapping("/UsersPorEquipo")
-public String showUsersPorEquipo(Model model) {
-    List<UsersPorEquipo> usersPorEquipo = usersPorEquipoService.findAll();
-    model.addAttribute("usersPorEquipo", usersPorEquipo);
-    return "views/UsersPorEquipo/listado-UsersPorEquipo";
+        public String showUsersPorEquipo(Model model) {
+        List<UsersPorEquipo> usersPorEquipo = usersPorEquipoService.findAll();
+        model.addAttribute("usersPorEquipo", usersPorEquipo);
+        return "views/UsersPorEquipo/listado-usersPorEquipo";
 }
 
     
@@ -100,21 +99,28 @@ public String showUsersPorEquipo(Model model) {
              return "views/UsersPorEquipo/listado-usersPorEquipo";
         }
     
-        //editar userPorEquipo
-        @PostMapping("/update-post")
-        public String updateUsersPorEquipo(@ModelAttribute("usersPorEquipo") UsersPorEquipo usersPorEquipo, BindingResult result, Model model) {
-            if (result.hasErrors()) {
-                // Manejar errores de validación aquí
-                return "views/UsersPorEquipo/usersPorEquipo-edit";
-            }
+        
+    //Obtener user por equipo para editar en html
+    @GetMapping("/update-post/{id}")
+    public String updateUsersPorEquipo(@PathVariable Integer id, Model model) {
+        UsersPorEquipo usersPorEquipo = usersPorEquipoService.findById(id);
+        model.addAttribute("usersPorEquipo", usersPorEquipo);
+        return "/views/UsersPorEquipo/editUsersPorEquipo";
+    }
+     //actualizar un user por equipo
+     @PostMapping("/update/{id}")
+     public ResponseEntity<UsersPorEquipo> updateUsersPorEquipo(@PathVariable Integer id, @Valid @RequestBody UsersPorEquipo usersPorEquipo) {
+         UsersPorEquipo updatedUsersPorEquipo = usersPorEquipoService.update(id, usersPorEquipo);
+         return new ResponseEntity<>(updatedUsersPorEquipo, HttpStatus.OK);
+     }
     
-            usersPorEquipoService.save(usersPorEquipo);
-    
-            return "redirect:/usersPorEquipo/listado-UsersPorEquipo"; // Redirige al usuario a la lista de usersPorEquipo después de guardar los cambios
-        }
-    
-    
-        @GetMapping("/listado-UsersPorEquipo")
+    // Creando la interfaz web
+    public UsersPorEquipoController(UsersPorEquipoService usersPorEquipoService) {
+        this.usersPorEquipoService = usersPorEquipoService;
+    }
+
+        //listado users por equipo        
+        @GetMapping("/listado-UsersPorEquipo") 
         public String listadoUsersPorEquipo(Model model) {
             List<User> users = userService.findAll();
             List<Equipos> equipo = equiposService.findAll();
@@ -135,18 +141,12 @@ public String showUsersPorEquipo(Model model) {
     
             return "views/UsersPorEquipo/addUsersPorEquipo";
         }
-    
-        @PutMapping("/{id}")
-        public ResponseEntity<UsersPorEquipo> updateUsersPorEquipo(@PathVariable Integer id, @Valid @RequestBody UsersPorEquipo usersPorEquipo) {
-            UsersPorEquipo updatedUsersPorEquipo = usersPorEquipoService.update(id, usersPorEquipo);
-            return new ResponseEntity<>(updatedUsersPorEquipo, HttpStatus.OK);
-        }
-
+      
         //eliminar un UserPorEquipo
         @PostMapping("/delete/{id}")
         public String deleteUsersPorEquipo(@PathVariable Integer id) {
             usersPorEquipoService.deleteById(id);
-            return "redirect:/usersPorEquipo/listado-UsersPorEquipo";
+            return "redirect:/usersPorEquipo/listado-usersPorEquipo";
         }
         
     
