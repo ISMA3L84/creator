@@ -8,16 +8,10 @@ import com.teamcreator.creator.Services.UserService;
 import com.teamcreator.creator.Services.UsersPorEquipoService;
 import com.teamcreator.creator.Repositorios.UserRepository;
 import com.teamcreator.creator.Repositorios.UsersPorEquipoRepository;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,7 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/usersPorEquipo") 
@@ -109,10 +102,11 @@ public class UsersPorEquipoController{
     }
      //actualizar un user por equipo
      @PostMapping("/update/{id}")
-     public ResponseEntity<UsersPorEquipo> updateUsersPorEquipo(@PathVariable Integer id, @Valid @RequestBody UsersPorEquipo usersPorEquipo) {
-         UsersPorEquipo updatedUsersPorEquipo = usersPorEquipoService.update(id, usersPorEquipo);
-         return new ResponseEntity<>(updatedUsersPorEquipo, HttpStatus.OK);
+     public String updateUsersPorEquipo(@PathVariable Integer id, @ModelAttribute UsersPorEquipo usersPorEquipo, Model model) {
+         UsersPorEquipo updateUsersPorEquipo = usersPorEquipoService.update(id, usersPorEquipo);
+         return "/views/UsersPorEquipo/listado-UsersPorEquipo";
      }
+     
     
     // Creando la interfaz web
     public UsersPorEquipoController(UsersPorEquipoService usersPorEquipoService) {

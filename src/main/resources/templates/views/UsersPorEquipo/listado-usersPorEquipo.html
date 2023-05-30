@@ -3,7 +3,7 @@
   <head th:replace="fragments/common-head :: common-head">
   </head>
   <body>
-    <h1>Listado de Equipos <span th:text="${nombre}"></span>!</h1>
+    <h1>Listado de Users Por Equipos <span th:text="${nombre}"></span>!</h1>
     <div th:replace="fragments/navbar :: navbar"></div>
     <div class="container">
       <a href="/usersPorEquipo/addUsersPorEquipo" class="btn btn-primary my-3">Agregar User por Equipo</a>
@@ -14,16 +14,17 @@
             <th>ID</th>
             <th>ID Equipo</th>
             <th>ID User</th>
-           
-
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr th:each="usersPorEquipo : ${usersPorEquipo}">
             <td th:text="${usersPorEquipo.id}"></td>
             <td th:text="${usersPorEquipo.equipos.id}"></td> <!-- Aquí asumo que equipo es un campo en UsersPorEquipo -->
-            <td th:text="${usersPorEquipo.user.id}"></td> <!-- Aquí asumo que user es un campo en UsersPorEquipo -->      
-            <td><a th:href="@{update-post/{id}(id=${usersPorEquipo.id})}" class="btn btn-warning">Editar</a></td>
+            <td th:text="${usersPorEquipo.user.id}"></td> <!-- Aquí asumo que user es un campo en UsersPorEquipo -->  
+            
+            
+            <td><a th:href="@{/usersPorEquipo/update-post/{id}(id=${usersPorEquipo.id})}" class="btn btn-warning">Editar</a></td>
           </tr>
         </tbody>
       </table>

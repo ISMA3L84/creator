@@ -7,7 +7,7 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 
 <div class="container">
-<form th:action="@{/usersPorEquipo/update-post/{id}(id=${usersPorEquipo.id})}" th:object="${usersPorEquipo}" method="post">
+    <form th:action="@{/usersPorEquipo/update/{id}(id=${usersPorEquipo.id})}" th:object="${usersPorEquipo}" method="post">
     <!-- Id de user por equipo -->
     <div class="form-group row">
         <label for="id" class="col-sm-2 col-form-label">ID del User Por Equipo:</label>
