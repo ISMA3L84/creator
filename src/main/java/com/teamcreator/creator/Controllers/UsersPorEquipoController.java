@@ -62,10 +62,15 @@ public class UsersPorEquipoController{
         public String showUsersPorEquipo(Model model) {
         List<UsersPorEquipo> usersPorEquipo = usersPorEquipoService.findAll();
         model.addAttribute("usersPorEquipo", usersPorEquipo);
-        return "views/UsersPorEquipo/listado-usersPorEquipo";
+        return "views/UsersPorEquipo/listado-UsersPorEquipo";
 }
-
-    
+        // Obtener todos los users por equipo (GET)
+    /*     @GetMapping
+        public ResponseEntity<List<UsersPorEquipo>> getAllUsersPorEquipo() {
+        List<UsersPorEquipo> usersPorEquipo = usersPorEquipoService.findAll();
+        return new ResponseEntity<>(usersPorEquipo, HttpStatus.OK);
+    }
+    */
         //añadir userPorEquipo
         @PostMapping("/saveUsersPorEquipo")
         public String createUsers(@ModelAttribute UsersPorEquipo usersPorEquipo, BindingResult result) {
@@ -83,7 +88,7 @@ public class UsersPorEquipoController{
             User user = optionalUser.get();
             usersPorEquipo.setUser(user);
             usersPorEquipoRepository.save(usersPorEquipo);
-             return "views/UsersPorEquipo/listado-usersPorEquipo";
+            return "redirect:/usersPorEquipo/UsersPorEquipo";
         }
     
         
@@ -94,11 +99,12 @@ public class UsersPorEquipoController{
         model.addAttribute("usersPorEquipo", usersPorEquipo);
         return "/views/UsersPorEquipo/editUsersPorEquipo";
     }
+
      //actualizar un user por equipo
      @PostMapping("/update/{id}")
      public String updateUsersPorEquipo(@PathVariable Integer id, @ModelAttribute UsersPorEquipo usersPorEquipo, Model model) {
          UsersPorEquipo updatedusersPorEquipo = usersPorEquipoService.update(id, usersPorEquipo);
-         return "/views/UsersPorEquipo/listado-UsersPorEquipo";
+           return "redirect:/usersPorEquipo/UsersPorEquipo";
      }
      
     
@@ -135,7 +141,7 @@ public class UsersPorEquipoController{
         @PostMapping("/delete/{id}")
         public String deleteUsersPorEquipo(@PathVariable Integer id) {
             usersPorEquipoService.deleteById(id);
-            return "redirect:/usersPorEquipo/listado-UsersPorEquipo";
+            return "redirect:/usersPorEquipo/UsersPorEquipo";
         }
         
     
