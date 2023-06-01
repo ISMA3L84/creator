@@ -33,11 +33,14 @@
 
         </div>
     </div>
-    
-    <button type="submit">Guardar</button>
+    <div class="col-md-6 col-12 mb-3">
+    <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
-<form th:action="@{/usersPorEquipo/delete/{id}(id=${usersPorEquipo.id})}" method="post">
-    <button type="submit">Eliminar</button>
+    <div class="col-md-6 col-12 mb-3">
+        <form th:action="@{'/usersPorEquipo/delete/' + ${usersPorEquipo.id}}" method="post">
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+        </form>
+    </div>        
 </form>
 </body>
 </html>

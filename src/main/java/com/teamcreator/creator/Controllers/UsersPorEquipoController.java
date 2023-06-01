@@ -38,12 +38,6 @@ public class UsersPorEquipoController{
     
         @Autowired
         private EquiposService equiposService;
-    
-        @PostMapping("/usersPorEquipo")
-        public String createUsersPorEquipo(@ModelAttribute UsersPorEquipo usersPorEquipo) {
-            usersPorEquipoService.save(usersPorEquipo);
-            return "redirect:/usersPorEquipo/listado-usersPorEquipo";
-        }
         
         //cargar editar USers por equipo
         @GetMapping("/edit/{id}")
@@ -103,7 +97,7 @@ public class UsersPorEquipoController{
      //actualizar un user por equipo
      @PostMapping("/update/{id}")
      public String updateUsersPorEquipo(@PathVariable Integer id, @ModelAttribute UsersPorEquipo usersPorEquipo, Model model) {
-         UsersPorEquipo updateUsersPorEquipo = usersPorEquipoService.update(id, usersPorEquipo);
+         UsersPorEquipo updatedusersPorEquipo = usersPorEquipoService.update(id, usersPorEquipo);
          return "/views/UsersPorEquipo/listado-UsersPorEquipo";
      }
      
@@ -123,6 +117,7 @@ public class UsersPorEquipoController{
             return "/views/UsersPorEquipo/listado-UsersPorEquipo";
         }
     
+    //
         @GetMapping("/addUsersPorEquipo")
         public String addUsersPorEquipo(Model model) {
             UsersPorEquipo usersPorEquipo = new UsersPorEquipo();
@@ -140,7 +135,7 @@ public class UsersPorEquipoController{
         @PostMapping("/delete/{id}")
         public String deleteUsersPorEquipo(@PathVariable Integer id) {
             usersPorEquipoService.deleteById(id);
-            return "redirect:/usersPorEquipo/listado-usersPorEquipo";
+            return "redirect:/usersPorEquipo/listado-UsersPorEquipo";
         }
         
     
