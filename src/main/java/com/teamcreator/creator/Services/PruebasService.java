@@ -2,39 +2,34 @@ package com.teamcreator.creator.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-
-import javax.persistence.EntityNotFoundException;
-
 import com.teamcreator.creator.Modelo.Pruebas;
 import com.teamcreator.creator.Repositorios.PruebasRepository;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PruebasService {
-
+    
     @Autowired
     private PruebasRepository pruebasRepository;
-
-    //Encontrar todas las pruebas.
-    public List<Pruebas> findAll() {
-        return pruebasRepository.findAll();
-    } 
     
-    //Encontrar una prueba por ID.
-    public Pruebas findById(Long id) {
-        
-            return pruebasRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Equipo no encontrado por ID: " + id));
+    public PruebasService(PruebasRepository pruebasRepository) {
+        this.pruebasRepository = pruebasRepository;
     }
 
     //Guardar una nueva prueba.
     public Pruebas save(Pruebas pruebas) {
-        System.out.println("Guardando pruebas: " + pruebas.toString());
+        System.out.println("Guardando prueba: " + pruebas.toString());
         return pruebasRepository.save(pruebas);
     }
 
-    //Actualizar una prueba existente.
-    public Pruebas update(long id, Pruebas pruebasDetails) {
+    //Encontrar todas las pruebas.
+    public List<Pruebas> findAll() {
+        return pruebasRepository.findAll();
+    }
+    
+   //Actualizar una prueba existente.
+    public Pruebas update(Integer id, Pruebas pruebasDetails) {
         Pruebas pruebas = findById(id);
         pruebas.setNombre_prueba(pruebasDetails.getNombre_prueba());
         pruebas.setDescripcion_prueba(pruebasDetails.getDescripcion_prueba());
@@ -46,12 +41,20 @@ public class PruebasService {
         return pruebasRepository.save(pruebas);
     }
 
-    //Eliminar una prueba por ID.
-    public void delete(Long id) {
+   //Encontrar una prueba por ID
+   public Pruebas findById(Integer id) {
+    Optional<Pruebas> pruebas = pruebasRepository.findById(id);
+    if (pruebas.isPresent()){
+        return pruebas.get();
+        }else {
+            throw new RuntimeException("La prueba no se ha encontrado por el ID: " + id );
+        }
+   }
+
+    //Eliminar una prueba por ID
+    public void deleteById (Integer id) {
         Pruebas pruebas = findById(id);
         pruebasRepository.delete(pruebas);
     }
-}    
-           
-    
 
+}

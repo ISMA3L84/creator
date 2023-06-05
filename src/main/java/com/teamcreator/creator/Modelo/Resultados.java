@@ -18,7 +18,7 @@ public class Resultados {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "id_equipo", nullable = false)
@@ -40,7 +40,7 @@ public class Resultados {
 
 
     //constructor
-    public Resultados(int id, Equipos equipos, Pruebas pruebas, Date fecha, int puntos_conseguidos, int posicion) {
+    public Resultados(Integer id, Equipos equipos, Pruebas pruebas, Date fecha, int puntos_conseguidos, int posicion) {
         this.id = id;
         this.equipos = equipos;
         this.pruebas = pruebas;
@@ -57,7 +57,7 @@ public class Resultados {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -85,19 +85,19 @@ public class Resultados {
         this.fecha = fecha;
     }
 
-    public int getPuntos_conseguidos() {
+    public Integer getPuntos_conseguidos() {
         return puntos_conseguidos;
     }
 
-    public void setPuntos_conseguidos(int puntos_conseguidos) {
+    public void setPuntos_conseguidos(Integer puntos_conseguidos) {
         this.puntos_conseguidos = puntos_conseguidos;
     }
 
-    public int getPosicion() {
+    public Integer getPosicion() {
         return posicion;
     }
 
-    public void setPosicion(int posicion) {
+    public void setPosicion(Integer posicion) {
         this.posicion = posicion;
     }
 

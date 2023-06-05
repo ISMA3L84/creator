@@ -76,9 +76,6 @@ public String deleteEquipos(@PathVariable Integer id) {
     return "redirect:/equipos/listado-equipos";
 }
 
-
-
-
 // Creando la interfaz web
     public EquiposController(EquiposService equiposService) {
         this.equiposService = equiposService;

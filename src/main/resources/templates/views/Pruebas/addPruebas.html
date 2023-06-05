@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+  <head th:replace="fragments/common-head :: common-head">
+  </head>
+  <body>
+    <h1>AÑADIR PRUEBAS <span th:text="${nombre}"></span>!</h1>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="container">
+        <form th:action="@{/pruebas/savePruebas}" th:object="${pruebas}" method="post">
+
+            <!-- Id de Prueba -->
+            <div class="form-group row">
+                <label for="id" class="col-sm-2 col-form-label">ID de Prueba:</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="id" th:field="*{id}">
+                </div>
+            </div>
+            
+            <!-- Nombre de la Prueba-->
+            <div class="form-group row">
+                <label for="Nombr_prueba" class="col-sm-2 col-form-label">Nombre de la Prueba:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="Nombre_prueba" th:field="*{Nombre_prueba}">
+                </div>
+            </div>
+
+             <!-- Descripcion de la prueba -->
+             <div class="form-group row">
+                <label for="Descripcion_prueba" class="col-sm-2 col-form-label">Descripcon de la Prueba:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="Descripcion_prueba" th:field="*{Descripcion_prueba}">
+                </div>
+            </div>
+
+             <!-- Puntos-->
+             <div class="form-group row">
+                <label for="Puntos" class="col-sm-2 col-form-label">Puntos:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="Puntos" th:field="*{Puntos}">
+                </div>
+            </div>
+
+             <!-- Equipamiento Especial Obligatorio-->
+             <div class="form-group row">
+                <label for="Equipamiento_especial_obligatorio" class="col-sm-2 col-form-label">Equipamiento Especial Obligatorio:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="Equipamiento_especial_obligatorio" th:field="*{Equipamiento_especial_obligatorio}">
+                </div>
+            </div>
+
+             <!-- Advertencias-->
+             <div class="form-group row">
+                <label for="Advertencias" class="col-sm-2 col-form-label">Advertencias:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="Advertencias" th:field="*{Advertencias}">
+                </div>
+            </div>
+
+             <!-- Edad Minima Recomendada-->
+             <div class="form-group row">
+                <label for="Edad_minima_recomendada" class="col-sm-2 col-form-label">Edad Minima Recomendada:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="Edad_minima_recomendada" th:field="*{Edad_minima_recomendada}">
+                </div>
+            </div>
+    
+            <!-- Duracion estimada aprox -->
+            <div class="form-group row">
+                <label for="duracion_estimada_aprox" class="col-sm-2 col-form-label">Duracion Estimada Aprox:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="time" th:field="*{duracion_estimada_aprox}" id="duracion_estimada_aprox" />
+                </div>
+            </div>
+            
+
+             <!-- Botón para enviar el formulario -->
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">Guardar Prueba</button>
+                </div>
+            </div>
+    </div> 
+  </body>
+</html>

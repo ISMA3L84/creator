@@ -39,7 +39,41 @@ public class UsersPorEquipoController{
         @Autowired
         private EquiposService equiposService;
         
-        //cargar editar USers por equipo
+        //Añadir un nuevo Users Por Equipo (Con listas de tablas relacionadas)
+        @GetMapping("/addUsersPorEquipo")
+        public String addUsersPorEquipo(Model model) {
+            UsersPorEquipo usersPorEquipo = new UsersPorEquipo();
+            List<Equipos> equipos = equiposService.findAll();
+            List<User> users = userService.findAll();
+    
+            model.addAttribute("usersPorEquipo", usersPorEquipo);
+            model.addAttribute("equipos", equipos);
+            model.addAttribute("users", users);
+    
+            return "views/UsersPorEquipo/addUsersPorEquipo";
+            }
+
+        //Guardar un userPorEquipo
+        @PostMapping("/saveUsersPorEquipo")
+        public String createUsers(@ModelAttribute UsersPorEquipo usersPorEquipo, BindingResult result) {
+            if (result.hasErrors()) {
+                return "error";
+            }
+              
+            UUID userId = usersPorEquipo.getUser().getId();
+            Optional<User> optionalUser = userRepository.findById(userId);
+              
+            if (!optionalUser.isPresent()) {
+                  return "error";
+            }
+              
+              User user = optionalUser.get();
+              usersPorEquipo.setUser(user);
+              usersPorEquipoRepository.save(usersPorEquipo);
+              return "redirect:/usersPorEquipo/UsersPorEquipo";
+            }
+        
+        // editar Users por equipo (Con listas de tablas relacionadas)
         @GetMapping("/edit/{id}")
         public String showEditUsersPorEquipoForm(@PathVariable("id") Integer id, Model model) {
             try {
@@ -57,61 +91,33 @@ public class UsersPorEquipoController{
             }
         }
 
+        //Obtener user por equipo para editar en html
+        @GetMapping("/update-post/{id}")
+        public String updateUsersPorEquipo(@PathVariable Integer id, Model model) {
+        UsersPorEquipo usersPorEquipo = usersPorEquipoService.findById(id);
+        model.addAttribute("usersPorEquipo", usersPorEquipo);
+        return "/views/UsersPorEquipo/editUsersPorEquipo";
+        }
+
+        //actualizar un user por equipo
+        @PostMapping("/update/{id}")
+        public String updateUsersPorEquipo(@PathVariable Integer id, @ModelAttribute UsersPorEquipo usersPorEquipo, Model model) {
+         UsersPorEquipo updatedusersPorEquipo = usersPorEquipoService.update(id, usersPorEquipo);
+           return "redirect:/usersPorEquipo/UsersPorEquipo";
+        }
+
         //mostrar todos los users por equipo
         @GetMapping("/UsersPorEquipo")
         public String showUsersPorEquipo(Model model) {
         List<UsersPorEquipo> usersPorEquipo = usersPorEquipoService.findAll();
         model.addAttribute("usersPorEquipo", usersPorEquipo);
         return "views/UsersPorEquipo/listado-UsersPorEquipo";
-}
-        // Obtener todos los users por equipo (GET)
-    /*     @GetMapping
-        public ResponseEntity<List<UsersPorEquipo>> getAllUsersPorEquipo() {
-        List<UsersPorEquipo> usersPorEquipo = usersPorEquipoService.findAll();
-        return new ResponseEntity<>(usersPorEquipo, HttpStatus.OK);
-    }
-    */
-        //añadir userPorEquipo
-        @PostMapping("/saveUsersPorEquipo")
-        public String createUsers(@ModelAttribute UsersPorEquipo usersPorEquipo, BindingResult result) {
-            if (result.hasErrors()) {
-                return "error";
-            }
-            
-            UUID userId = usersPorEquipo.getUser().getId();
-            Optional<User> optionalUser = userRepository.findById(userId);
-            
-            if (!optionalUser.isPresent()) {
-                return "error";
-            }
-            
-            User user = optionalUser.get();
-            usersPorEquipo.setUser(user);
-            usersPorEquipoRepository.save(usersPorEquipo);
-            return "redirect:/usersPorEquipo/UsersPorEquipo";
         }
-    
-        
-    //Obtener user por equipo para editar en html
-    @GetMapping("/update-post/{id}")
-    public String updateUsersPorEquipo(@PathVariable Integer id, Model model) {
-        UsersPorEquipo usersPorEquipo = usersPorEquipoService.findById(id);
-        model.addAttribute("usersPorEquipo", usersPorEquipo);
-        return "/views/UsersPorEquipo/editUsersPorEquipo";
-    }
-
-     //actualizar un user por equipo
-     @PostMapping("/update/{id}")
-     public String updateUsersPorEquipo(@PathVariable Integer id, @ModelAttribute UsersPorEquipo usersPorEquipo, Model model) {
-         UsersPorEquipo updatedusersPorEquipo = usersPorEquipoService.update(id, usersPorEquipo);
-           return "redirect:/usersPorEquipo/UsersPorEquipo";
-     }
-     
-    
-    // Creando la interfaz web
-    public UsersPorEquipoController(UsersPorEquipoService usersPorEquipoService) {
+  
+        // Creando la interfaz web
+        public UsersPorEquipoController(UsersPorEquipoService usersPorEquipoService) {
         this.usersPorEquipoService = usersPorEquipoService;
-    }
+        }
 
         //listado users por equipo        
         @GetMapping("/listado-UsersPorEquipo") 
@@ -123,20 +129,6 @@ public class UsersPorEquipoController{
             return "/views/UsersPorEquipo/listado-UsersPorEquipo";
         }
     
-    //
-        @GetMapping("/addUsersPorEquipo")
-        public String addUsersPorEquipo(Model model) {
-            UsersPorEquipo usersPorEquipo = new UsersPorEquipo();
-            List<Equipos> equipos = equiposService.findAll();
-            List<User> users = userService.findAll();
-    
-            model.addAttribute("usersPorEquipo", usersPorEquipo);
-            model.addAttribute("equipos", equipos);
-            model.addAttribute("users", users);
-    
-            return "views/UsersPorEquipo/addUsersPorEquipo";
-        }
-      
         //eliminar un UserPorEquipo
         @PostMapping("/delete/{id}")
         public String deleteUsersPorEquipo(@PathVariable Integer id) {

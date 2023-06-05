@@ -2,10 +2,8 @@ package com.teamcreator.creator.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.teamcreator.creator.Modelo.UsersPorEquipo;
 import com.teamcreator.creator.Repositorios.UsersPorEquipoRepository;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -60,11 +58,4 @@ public class UsersPorEquipoService {
         UsersPorEquipo usersPorEquipo = findById(id);
         usersPorEquipoRepository.delete(usersPorEquipo);
     }
-
-    
-
-    
-
-  
-
 }
