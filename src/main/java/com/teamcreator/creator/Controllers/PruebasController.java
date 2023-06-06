@@ -17,8 +17,6 @@ public class PruebasController {
 @Autowired
 private PruebasService pruebasService;
 
-
-
 //Añadir un nueva Prueba
 @GetMapping("/addPruebas")
 public String addPruebas(Model model) {
@@ -30,33 +28,23 @@ public String addPruebas(Model model) {
 @PostMapping("/savePruebas")
 public String createPruebas(@ModelAttribute Pruebas Pruebas) {
     pruebasService.save(Pruebas);
-        return "redirect:/pruebas/mostrarPruebas";
+        return "redirect:/pruebas/listado-Pruebas";
     }
 
-    @GetMapping("/update-post/{id}")
-    public String updatePruebas(@PathVariable Integer id, Model model) {
-    Pruebas pruebas = pruebasService.findById(id);
-    model.addAttribute("pruebas", pruebas);
-    return "/views/Pruebas/editPruebas";
-    }
-    
-
-
-
-//Obtener pruebas para editar en html
-/*@GetMapping("/update-post/{id}")
+    //Obtener pruebas para editar en html
+@GetMapping("/update-post/{id}")
 public String updatePruebas(@PathVariable Integer id, Model model) {
 Pruebas pruebas = pruebasService.findById(id);
 model.addAttribute("pruebas", pruebas);
 return "/views/Pruebas/editPruebas";
 }
- */
+ 
 
 //actualizar una prueba
 @PostMapping("/update/{id}")
 public String updatePruebas(@PathVariable Integer id, @ModelAttribute Pruebas pruebas, Model model) {
 Pruebas updatedPruebas = pruebasService.update(id, pruebas);
-   return "redirect:/pruebas/mostrarPruebas";
+   return "redirect:/pruebas/listado-Pruebas";
 }
 
 // Creando la interfaz web
@@ -64,21 +52,14 @@ public PruebasController(PruebasService pruebasService) {
 this.pruebasService = pruebasService;
 }
 
-//listado de Pruebas      
-@GetMapping("/listado-Pruebas") 
-public String listadoPruebas(Model model) {
-    List<Pruebas> pruebas = pruebasService.findAll();
-    return "/views/Pruebas/listado-pruebas";
-}
-
-
 //  (Mostrar todas las pruebas)     
-@GetMapping("/mostrarPruebas") 
+@GetMapping("/listado-Pruebas") 
 public String showPruebas(Model model) {
     List<Pruebas> listaPruebas = pruebasService.findAll();
     model.addAttribute("pruebas", listaPruebas);
    return "/views/Pruebas/listado-pruebas";
 }
+
 
 // Obtener todas las pruebas(GET)
 @GetMapping
@@ -91,7 +72,7 @@ public ResponseEntity<List<Pruebas>> getAllPruebas() {
 @PostMapping("/delete/{id}")
 public String deletePruebas(@PathVariable Integer id) {
     pruebasService.deleteById(id);
-    return "redirect:/pruebas/mostrarPruebas";
+    return "redirect:/pruebas/listado-Pruebas";
 }
 
 

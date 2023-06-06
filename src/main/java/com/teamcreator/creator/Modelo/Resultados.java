@@ -8,9 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import java.util.Date;
 
 
-import java.sql.Date;
 
 @Table(name = "Resultados")
 @Entity
@@ -28,19 +29,20 @@ public class Resultados {
     @JoinColumn(name = "id_pruebas", nullable = false)
     private Pruebas pruebas;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fecha")
-    private Date fecha;
-
+    private java.util.Date fecha;
+    
     @Column(name = "puntos_conseguidos")
     private int puntos_conseguidos;
 
     @Column(name = "posicion")
-    private int posicion;
+    private Integer posicion;
 
 
 
     //constructor
-    public Resultados(Integer id, Equipos equipos, Pruebas pruebas, Date fecha, int puntos_conseguidos, int posicion) {
+    public Resultados(Integer id, Equipos equipos, Pruebas pruebas, Date fecha, Integer puntos_conseguidos, Integer posicion) {
         this.id = id;
         this.equipos = equipos;
         this.pruebas = pruebas;
