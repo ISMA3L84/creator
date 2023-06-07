@@ -1,14 +1,13 @@
 package com.teamcreator.creator.Modelo;
+
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
-
 
 @Table(name = "UsersporEquipo")
 @Entity
@@ -26,9 +25,11 @@ public class UsersPorEquipo {
 	@ManyToOne
 	@JoinColumn(name = "id_user", nullable = false)
 	private User user;
-//constructores
 
+
+	//constructores
 	public UsersPorEquipo() {
+
 	}
 
 	public UsersPorEquipo(Integer id, Equipos equipos, User user) {
@@ -37,7 +38,7 @@ public class UsersPorEquipo {
 		this.user = user;
 	}
 
-//getter and setters
+	//getter and setters
 	public Integer getId() {
 		return id;
 	}
@@ -62,11 +63,18 @@ public class UsersPorEquipo {
 		this.user = user;
 	}
 
-	//toString
-	@Override
+	/*@Override
 	public String toString() {
 		return "UsersPorEquipo [id=" + id + ", equipos=" + equipos + ", user=" + user + "]";
 	}
+*/
+
+@Override
+public String toString() {
+    return "UsersPorEquipo [id=" + id + ", equiposId=" + (equipos != null ? equipos.getId() : null) + ", userId=" + (user != null ? user.getId() : null) + "]";
+}
+
+	
 
    
 	

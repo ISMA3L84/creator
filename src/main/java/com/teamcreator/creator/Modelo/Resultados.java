@@ -55,7 +55,7 @@ public class Resultados {
     }
 
     //getters and setters
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -105,13 +105,20 @@ public class Resultados {
 
 
     //toString
-    @Override
+    /*@Override
     public String toString() {
         return "Resultados [id=" + id + ", equipos=" + equipos + ", pruebas=" + pruebas + ", fecha=" + fecha
                 + ", puntos_conseguidos=" + puntos_conseguidos + ", posicion=" + posicion + "]";
     }
+*/
+  
+@Override
+public String toString() {
+    return "Resultados [id=" + id + ", equiposId=" + (equipos != null ? equipos.getId() : null)
+            + ", pruebasId=" + (pruebas != null ? pruebas.getId() : null) + ", fecha=" + fecha
+            + ", puntos_conseguidos=" + puntos_conseguidos + ", posicion=" + posicion + "]";
+}
 
-    
     
 
     

@@ -5,6 +5,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
@@ -18,8 +19,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.time.LocalDate;
 
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -43,18 +44,17 @@ public class Equipos {
     private LocalDate fecha_fin_equipo;
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UsersPorEquipo> usersPorEquipo = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "equipos", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<UsersPorEquipo> usersPorEquipo = new HashSet<>();
 
-    @OneToMany(mappedBy = "equipos", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Resultados> resultados = new ArrayList<>();
-
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "equipos", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Resultados> resultados = new HashSet<>();
  //constructores
     public Equipos() {
     }
 
-    public Equipos(Integer id, String nombreEquipo, LocalDate fecha_inicio_equipo, LocalDate fecha_fin_equipo,
-            List<UsersPorEquipo> usersPorEquipo, List<Resultados> resultados) {
+ public Equipos(Integer id, String nombreEquipo, LocalDate fecha_inicio_equipo, LocalDate fecha_fin_equipo,
+            Set<UsersPorEquipo> usersPorEquipo, Set<Resultados> resultados) {
         this.id = id;
         this.nombreEquipo = nombreEquipo;
         this.fecha_inicio_equipo = fecha_inicio_equipo;
@@ -63,7 +63,8 @@ public class Equipos {
         this.resultados = resultados;
     }
 
- //getter y setter
+    //getter y setter
+    
     public Integer getId() {
         return id;
     }
@@ -96,32 +97,38 @@ public class Equipos {
         this.fecha_fin_equipo = fecha_fin_equipo;
     }
 
-    public List<UsersPorEquipo> getUsersPorEquipo() {
+    public Set<UsersPorEquipo> getUsersPorEquipo() {
         return usersPorEquipo;
     }
 
-    public void setUsersPorEquipo(List<UsersPorEquipo> usersPorEquipo) {
+    public void setUsersPorEquipo(Set<UsersPorEquipo> usersPorEquipo) {
         this.usersPorEquipo = usersPorEquipo;
     }
 
-    public List<Resultados> getResultados() {
+    public Set<Resultados> getResultados() {
         return resultados;
     }
 
-    public void setResultados(List<Resultados> resultados) {
+    public void setResultados(Set<Resultados> resultados) {
         this.resultados = resultados;
     }
 
-    @Override
+
+    /*@Override
     public String toString() {
         return "Equipos [id=" + id + ", nombreEquipo=" + nombreEquipo + ", fecha_inicio_equipo=" + fecha_inicio_equipo
                 + ", fecha_fin_equipo=" + fecha_fin_equipo + ", usersPorEquipo=" + usersPorEquipo + ", resultados="
                 + resultados + "]";
     }
+*/
 
-   
-    
-    
+@Override
+public String toString() {
+    return "Equipos [id=" + id + ", nombreEquipo=" + nombreEquipo + ", fecha_inicio_equipo=" + fecha_inicio_equipo
+            + ", fecha_fin_equipo=" + fecha_fin_equipo + "]";
+}
+
+
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
@@ -131,7 +138,6 @@ public class WebConfig implements WebMvcConfigurer {
                 source -> LocalDate.parse(source, DateTimeFormatter.ISO_DATE));
     }
 }
-
 
 
 }

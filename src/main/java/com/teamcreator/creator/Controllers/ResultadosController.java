@@ -21,9 +21,6 @@ public class ResultadosController {
 private PruebasService pruebasService;
 
 @Autowired
-private EquiposService equiposService;
-
-@Autowired
 private ResultadosService resultadosService;
 
 //Añadir un nuevo Resultado
