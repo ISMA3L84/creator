@@ -23,7 +23,7 @@ private PruebasService pruebasService;
 @Autowired
 private ResultadosService resultadosService;
 
-//Añadir un nuevo Resultado
+//Este metodo me lleva a la vista para Añadir un nuevo Resultado
 @GetMapping("/addResultados")
 public String addResultados(Model model) {
     model.addAttribute("resultados", new Resultados());
@@ -37,7 +37,7 @@ public String createResultados(@ModelAttribute Resultados Resultados) {
         return "redirect:/resultados/listado-Resultados";
     }
 
-//Obtener resultados para editar en html
+//Obtener resultados para editar en html y luego me lleva a la vista de EditarPrueba -> FUNCIONA
 @GetMapping("/update-post/{id}")
 public String updateResultados(@PathVariable Integer id, Model model) {
 Resultados resultados = resultadosService.findById(id);
@@ -47,7 +47,7 @@ return "views/Resultados/editResultados";
  
 
 //actualizar un resultados
-@PostMapping("/update/{id}")
+@PostMapping("/update-post/{id}")
 public String updateResultados(@PathVariable Integer id, @ModelAttribute Resultados resultados, Model model) {
 Resultados updatedResultados = resultadosService.update(id, resultados);
    return "redirect:/resultados/listado-Resultados";
@@ -76,7 +76,7 @@ public ResponseEntity<List<Resultados>> getAllResultados() {
 //eliminar un Resultado
 @PostMapping("/delete/{id}")
 public String deleteResultados(@PathVariable Integer id) {
-    pruebasService.deleteById(id);
+    resultadosService.deleteById(id);
     return "redirect:/resultados/listado-Resultados";
 }
 

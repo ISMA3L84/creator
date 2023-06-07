@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+
 @Entity
 @Table(name = "Pruebas")
 public class Pruebas{
@@ -24,7 +25,6 @@ public class Pruebas{
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "pruebas", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Resultados> resultados = new HashSet<>();
-
 
     /*@OneToMany(mappedBy = "pruebas", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Resultados> resultados = new ArrayList<>();
