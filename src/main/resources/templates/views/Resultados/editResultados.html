@@ -7,7 +7,7 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 
 <div class="container">
-    <form th:action="@{/resultados/update-post/{id}(id=${resultados.id})}" th:object="${Resultados}" method="post">
+    <form th:action="@{/resultados/update-post/{id}(id=${resultados.id})}" th:object="${resultados}" method="post">
         
          <!-- Id de Resultado -->
          <div class="form-group row">
@@ -21,7 +21,7 @@
         <div class="form-group row">
             <label for="Equipos" class="col-sm-2 col-form-label">Id del Equipo:</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control" id="Equipos" th:field="*{Equipos}">
+                <input type="number" class="form-control" id="equipos.id" th:field="*{equipos.id}">
             </div>
         </div>
 
@@ -29,7 +29,7 @@
          <div class="form-group row">
             <label for="Pruebas" class="col-sm-2 col-form-label">Id de Prueba:</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control" id="Pruebas" th:field="*{Pruebas}">
+                <input type="number" class="form-control" id="pruebas.id" th:field="*{pruebas.id}">
             </div>
         </div>
 
