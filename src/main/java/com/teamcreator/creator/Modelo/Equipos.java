@@ -44,10 +44,10 @@ public class Equipos {
     private LocalDate fecha_fin_equipo;
 
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "equipos", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "equipos", orphanRemoval = true)
     private Set<UsersPorEquipo> usersPorEquipo = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "equipos", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "equipos", orphanRemoval = true)
     private Set<Resultados> resultados = new HashSet<>();
  //constructores
     public Equipos() {

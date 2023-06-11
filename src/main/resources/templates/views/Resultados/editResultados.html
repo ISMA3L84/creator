@@ -61,10 +61,10 @@
     <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
 
-    <div class="col-md-6 col-12 mb-3">
-        <form th:action="@{'/resultados/delete/' + ${resultados.id}}" method="post">
+    <form th:action="@{'/resultados/delete/' + ${resultados.id}}" method="post">
+        <div class="col-md-6 col-12 mb-3">
             <button type="submit" class="btn btn-danger">Eliminar</button>
-        </form>
-    </div>        
+        </div>
+    </form>   
 </body>
 </html>

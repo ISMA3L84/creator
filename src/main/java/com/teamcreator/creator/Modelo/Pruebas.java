@@ -23,7 +23,7 @@ public class Pruebas{
     @Column(name = "id")
     private Integer id;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "pruebas", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "pruebas", orphanRemoval = true)
     private Set<Resultados> resultados = new HashSet<>();
 
     /*@OneToMany(mappedBy = "pruebas", cascade = CascadeType.ALL, orphanRemoval = true)

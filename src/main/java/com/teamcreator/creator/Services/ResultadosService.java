@@ -51,9 +51,8 @@ public class ResultadosService {
    }
 
     //Eliminar un resultado por ID
-    public void deleteById (Integer id) {
-        Resultados resultados = findById(id);
-        resultadosRepository.delete(resultados);
+    public void deleteById(Integer id) {
+        resultadosRepository.deleteById(id);
     }
 
 }
